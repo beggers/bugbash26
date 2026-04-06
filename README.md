@@ -1,11 +1,1 @@
-# Welcome to [Slidev](https://github.com/slidevjs/slidev)!
-
-To start the slide show:
-
-- `pnpm install`
-- `pnpm dev`
-- visit <http://localhost:3030>
-
-Edit the [slides.md](./slides.md) to see the changes.
-
-Learn more about Slidev at the [documentation](https://sli.dev/).
+I'm speaking at [BugBash 2026](https://antithesis.com/bugbash/conference2026/). These are the slides for my talk.

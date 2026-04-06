@@ -1,637 +1,597 @@
 ---
-# try also 'default' to start simple
 theme: seriph
-# random image from a curated Unsplash collection by Anthony
-# like them? see https://unsplash.com/collections/94734566/slidev
-background: https://cover.sli.dev
-# some information about your slides (markdown enabled)
-title: Welcome to Slidev
+title: Informal Methods
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
+  ## Informal Methods
 
-  Learn more at [Sli.dev](https://sli.dev)
-# apply UnoCSS classes to the current slide
-class: text-center
-# https://sli.dev/features/drawing
+  A BugBash 2026 talk about which traditional SRE reliability tools still
+  work in an era of agentic AI, and which human-review habits stop scaling.
+class: text-left
 drawings:
   persist: false
-# slide transition: https://sli.dev/guide/animations.html#slide-transitions
-transition: slide-left
-# enable Comark Syntax: https://comark.dev/syntax/markdown
-comark: true
-# duration of the presentation
 duration: 35min
+mdc: true
 ---
 
-# Welcome to Slidev
+# Informal Methods
 
-Presentation slides for developers
+Reliability lessons for an era of agentic AI tools
 
-<div @click="$slidev.nav.next" class="mt-12 py-1" hover:bg="white op-10">
-  Press Space for next page <carbon:arrow-right />
-</div>
-
-<div class="abs-br m-6 text-xl">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="slidev-icon-btn">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" class="slidev-icon-btn">
-    <carbon:logo-github />
-  </a>
+<div class="mt-12 text-xl opacity-80">
+BugBash 2026
 </div>
 
 <!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
+The framing: this is not a talk about replacing formal methods. It is about the
+informal engineering controls SRE already uses when correctness is too large to
+prove locally and too important to leave to vibes.
 -->
 
 ---
-transition: fade-out
+layout: statement
 ---
 
-# What is Slidev?
+# The robot was very confident.
 
-Slidev is a slides maker and presenter designed for developers, consist of the following features
-
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - themes can be shared and re-used as npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embed Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export to PDF, PPTX, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - virtually anything that's possible on a webpage is possible in Slidev
-<br>
-<br>
-
-Read more about [Why Slidev?](https://sli.dev/guide/why)
+The service was very surprised.
 
 <!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/features/slide-scope-style
+Cold open story scaffold. Replace the bracketed pieces with a real incident from
+your career before presenting.
+
+"I want to start with a very small story about the time I asked [AI tool] to do
+something extremely reasonable: [small task, like fix a flaky test / update a
+runbook / make a one-line config change].
+
+It responded with the kind of confidence you normally only see from a senior
+engineer who has not read the error message yet.
+
+The actual diff did [silly thing]: it removed the retry loop because it looked
+redundant, renamed the flag because the old name was ugly, rewrote a helper it
+didn't understand, and then wrote a lovely PR description explaining that this
+reduced complexity.
+
+And the worst part was: locally, it passed.
+
+Staging, being less easily charmed by prose, immediately disagreed. My
+five-minute helper-bot task became an afternoon of archaeology, where I had to
+explain to a machine that sometimes dead code is load-bearing code, and sometimes
+the weird branch exists because production has been patiently teaching us things
+since 2019.
+
+The lesson I took away was not 'never use agents.' The lesson was: if a system
+can generate plausible work faster than I can inspect it, then my real safety
+tool cannot be the inspection. It has to be the loop around the work."
+
+The segue: "That loop is what this talk is about."
 -->
 
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-</style>
+---
+layout: statement
+---
+
+# Agentic AI changes the economics of software change.
+
+It does not change the need for reliability.
 
 <!--
-Here is another comment.
+The important shift is not "AI can code". The important shift is that generating
+reasonable-looking changes is becoming much cheaper than reviewing them.
 -->
 
 ---
-transition: slide-up
-level: 2
+
+# The thesis
+
+Some reliability practices get **more valuable** with agents:
+
+<div class="mt-6">
+
+- Small, frequent rollouts
+- Good monitoring and alerting
+- Fast rollback and progressive delivery
+- Incident review and operational feedback loops
+
+</div>
+
+<div class="mt-8">
+
+Some practices get **less reliable**:
+
+- Code review as the primary safety mechanism
+- Human expert review as a universal gate
+- Launch approval based on reading artifacts instead of exercising behavior
+
+</div>
+
+<!--
+I want to separate the tools that improve with higher change velocity from the
+tools that assume human attention is abundant.
+-->
+
 ---
 
-# Navigation
+# The old bargain
 
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/ui#navigation-bar)
+For a long time, reliability practice quietly assumed:
 
-## Keyboard Shortcuts
+- Producing changes is expensive
+- A reviewer can inspect the important parts
+- Reviewers share enough context to notice the weird thing
+- A small number of experts can sit at critical gates
+- Slow enough process can compensate for incomplete automation
 
-|                                                     |                             |
-| --------------------------------------------------- | --------------------------- |
-| <kbd>right</kbd> / <kbd>space</kbd>                 | next animation or slide     |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd>                                       | previous slide              |
-| <kbd>down</kbd>                                     | next slide                  |
+<!--
+This bargain was never perfect, but it was often good enough because humans were
+the bottleneck on both producing and accepting change.
+-->
 
-<!-- https://sli.dev/guide/animations.html#click-animation -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-  alt=""
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
+---
+
+# Agents break that bargain
+
+They make it cheap to produce:
+
+- plausible diffs
+- plausible designs
+- plausible explanations
+- plausible tests
+- plausible incident summaries
+
+<div class="mt-8 text-2xl">
+The scarce resource becomes <strong>trustworthy evaluation</strong>.
+</div>
+
+<!--
+The problem is not that agent output is always bad. The problem is that it is
+cheap enough and plausible enough to overwhelm the old review economics.
+-->
+
+---
+
+# Reliability has always been a feedback-loop problem
+
+```mermaid {theme: 'neutral', scale: 0.85}
+flowchart LR
+  Change[Change] --> Deploy[Deploy]
+  Deploy --> Observe[Observe]
+  Observe --> Decide[Decide]
+  Decide --> Adjust[Adjust]
+  Adjust --> Change
+
+  Observe --> Alerts[Alerts]
+  Decide --> Rollback[Rollback]
+  Decide --> Learn[Postmortem]
+```
+
+<div class="mt-6">
+SRE works when the loop is short, instrumented, and safe to repeat.
+</div>
+
+<!--
+This is why SRE patterns transfer well. They assume local reasoning is
+incomplete and that systems need an external source of truth.
+-->
+
+---
+
+# "Informal methods"
+
+Not proofs. Not vibes.
+
+<div class="mt-8 text-2xl leading-normal">
+Practical controls that make unreliable people, code, and systems reliable
+enough by tightening the loop between <strong>intent</strong>, <strong>behavior</strong>, and <strong>consequence</strong>.
+</div>
+
+<!--
+This is the title move. The formal-methods audience will recognize the contrast:
+these are lower-rigor methods, but they are not unserious.
+-->
 
 ---
 layout: two-cols
-layoutClass: gap-16
+layoutClass: gap-12
 ---
 
-# Table of contents
+# Transfers well
 
-You can use the `Toc` component to generate a table of contents for your slides:
-
-```html
-<Toc minDepth="1" maxDepth="1" />
-```
-
-The title will be inferred from your slide content, or you can override it with `title` and `level` in your frontmatter.
+- Small batches
+- Frequent deploys
+- Feature flags
+- Canarying
+- Rollback muscle
+- SLOs
+- Alerts on symptoms
+- Test automation
+- Post-incident learning
 
 ::right::
 
-<Toc text-sm minDepth="1" maxDepth="2" />
+# Transfers poorly
+
+- Big-bang review
+- Expert sign-off queues
+- "LGTM" as a safety case
+- Reviewing generated text as proof
+- Manual launch checklists with no executable checks
+- Trusting confidence more than telemetry
+- Centralized ownership of all risk decisions
+
+<!--
+This is the core split. The first column improves when changes are cheap. The
+second column collapses when changes are cheap.
+-->
 
 ---
-layout: image-right
-image: https://cover.sli.dev
+
+# Why small rollouts work
+
+Fast and frequent rollout practice was built for uncertainty.
+
+<div class="mt-8 grid grid-cols-3 gap-4">
+  <div class="rounded border p-4">
+    <div class="text-xl font-bold">Smaller blast radius</div>
+    <div class="mt-2 opacity-75">Agent patches can be scoped to one behavior.</div>
+  </div>
+  <div class="rounded border p-4">
+    <div class="text-xl font-bold">Faster attribution</div>
+    <div class="mt-2 opacity-75">A bad change is easier to connect to its symptom.</div>
+  </div>
+  <div class="rounded border p-4">
+    <div class="text-xl font-bold">Cheaper retries</div>
+    <div class="mt-2 opacity-75">Regenerate, repair, or revert without drama.</div>
+  </div>
+</div>
+
+<!--
+Agent workflows should lean into smaller PRs and smaller deploys. Do not ask one
+reviewer to bless a giant generated change.
+-->
+
 ---
 
-# Code
+# Monitoring gets better, not worse
 
-Use code snippets and get the highlighting directly, and even types hover!
+Monitoring and alerting are valuable because they are outside the agent's narrative.
 
-```ts [filename-example.ts] {all|4|6|6-7|9|all} twoslash
-// TwoSlash enables TypeScript hover information
-// and errors in markdown code blocks
-// More at https://shiki.style/packages/twoslash
-import { computed, ref } from 'vue'
+<div class="mt-8">
 
-const count = ref(0)
-const doubled = computed(() => count.value * 2)
+- Did latency move?
+- Did error rate move?
+- Did the queue drain?
+- Did the user-visible task complete?
+- Did we violate the invariant?
 
-doubled.value = 2
+</div>
+
+<div class="mt-8 text-2xl">
+The system's behavior outranks the agent's explanation.
+</div>
+
+<!--
+An agent can be very persuasive about why a change is safe. Telemetry does not
+care. That is exactly why we should invest more in it.
+-->
+
+---
+
+# Alerts should be about symptoms
+
+Bad:
+
+- "The agent said the migration was safe."
+- "The generated tests passed."
+- "The PR description says no user impact."
+
+<div class="mt-8">
+Good:
+</div>
+
+- "Checkout success rate fell below the SLO."
+- "A canary cohort is seeing elevated 5xxs."
+- "The invariant monitor found duplicate ownership."
+
+<!--
+This is the same SRE lesson as before. Page on customer pain and broken
+invariants, not on the internal ceremony that preceded them.
+-->
+
+---
+
+# Rollback is an AI safety primitive
+
+If agents make changes cheaper, reversibility becomes more important.
+
+<div class="mt-8 grid grid-cols-2 gap-8">
+  <div>
+    <h3>Prefer</h3>
+    <ul>
+      <li>Feature flags</li>
+      <li>Canary deploys</li>
+      <li>Backward-compatible migrations</li>
+      <li>Automated rollback triggers</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Avoid</h3>
+    <ul>
+      <li>Irreversible generated migrations</li>
+      <li>Mixed refactor plus behavior PRs</li>
+      <li>Manual rollback plans written after the fact</li>
+      <li>One-shot approval for high-blast-radius changes</li>
+    </ul>
+  </div>
+</div>
+
+<!--
+This is not special pleading for AI. It is normal operational hygiene becoming
+more central because the volume of attempted changes increases.
+-->
+
+---
+
+# Where human review stops scaling
+
+Code review used to be a useful choke point.
+
+<div class="mt-8 text-3xl leading-normal">
+In an agentic workflow, it can become a lossy compression algorithm for risk.
+</div>
+
+<div class="mt-8">
+
+- The diff is larger than the reviewer budget
+- The explanation is written by the same system that wrote the change
+- The test plan is plausible but not adversarial
+- The reviewer is asked to verify context they do not actually hold
+
+</div>
+
+<!--
+The point is not "never review code". The point is "stop treating review as the
+main proof of safety."
+-->
+
+---
+
+# Expert review is everywhere
+
+We do not only review code.
+
+<div class="mt-6 grid grid-cols-2 gap-x-10 gap-y-3">
+  <div>API designs</div>
+  <div>Architecture docs</div>
+  <div>Security exceptions</div>
+  <div>Launch plans</div>
+  <div>Migration plans</div>
+  <div>Incident updates</div>
+  <div>Runbook changes</div>
+  <div>Dashboard edits</div>
+  <div>Alert tuning</div>
+  <div>Dependency updates</div>
+  <div>Customer comms</div>
+  <div>Postmortems</div>
+</div>
+
+<div class="mt-8 text-2xl">
+Agents increase the volume of every one of these artifacts.
+</div>
+
+<!--
+This is the part I want to emphasize: human expert review is not just PR review.
+Development is packed with gates that depend on an expert reading a thing and
+deciding it is safe.
+-->
+
+---
+
+# The review monoculture
+
+When we lack executable confidence, we ask a human to look at it.
+
+<div class="mt-8">
+
+That turns into:
+
+- review as testing
+- review as threat modeling
+- review as rollout safety
+- review as product validation
+- review as incident detection
+- review as organizational memory
+
+</div>
+
+<div class="mt-8 text-2xl">
+One tool cannot carry that much load.
+</div>
+
+<!--
+This slide should feel slightly uncomfortable because it describes a lot of
+normal engineering process.
+-->
+
+---
+layout: statement
+---
+
+# Replace review of artifacts with evaluation of behavior.
+
+<!--
+This is the pivot from critique to prescription.
+-->
+
+---
+
+# Make review executable
+
+Ask for artifacts only when they create or explain checks.
+
+```yaml
+change:
+  intent: "Reduce queue latency by changing worker batching"
+  risk: "Can reorder low-priority jobs"
+
+required_evidence:
+  - load_test: "p95 queue latency improves"
+  - invariant: "per-account job ordering preserved"
+  - canary: "no SLO regression for 30 minutes"
+  - rollback: "flag disables new batcher"
 ```
 
-<arrow v-click="[4, 5]" x1="350" y1="310" x2="195" y2="342" color="#953" width="2" arrowSize="1" />
+<div class="mt-4">
+The review target is the safety case, not the prose.
+</div>
 
-<!-- This allow you to embed external code blocks -->
-<<< @/snippets/external.ts#snippet
+<!--
+This is intentionally not a perfect schema. It is a pattern: capture intent and
+risk, then connect them to executable evidence.
+-->
 
-<!-- Footer -->
+---
 
-[Learn more](https://sli.dev/features/line-highlighting)
+# Move humans up the stack
 
-<!-- Inline style -->
+Humans should spend attention on:
+
+- Choosing the goal
+- Defining acceptable risk
+- Setting boundaries and permissions
+- Designing new checks when the old checks are blind
+- Reading small, high-leverage diffs
+- Investigating surprising behavior
+
+<div class="mt-8 text-2xl">
+Do not spend scarce expert attention re-reading every generated token.
+</div>
+
+<!--
+This is the constructive version of "code review is not enough." Human review is
+still essential, but it should be spent where humans are strongest.
+-->
+
+---
+
+# A better agentic change loop
+
+```mermaid {theme: 'neutral', scale: 0.85}
+flowchart LR
+  Intent[Human intent] --> Scope[Constrained agent task]
+  Scope --> Patch[Small patch]
+  Patch --> Checks[Executable checks]
+  Checks --> Canary[Canary / staged rollout]
+  Canary --> Telemetry[Telemetry]
+  Telemetry --> Decision{Promote, repair, or revert?}
+  Decision -->|promote| Done[Done]
+  Decision -->|repair| Scope
+  Decision -->|revert| Revert[Rollback]
+```
+
+<div class="mt-4">
+The loop should make the safe thing boring and the unsafe thing hard.
+</div>
+
+<!--
+The key pieces: constrained tasks, small patches, executable checks, and
+telemetry-driven decisions.
+-->
+
+---
+
+# What to measure
+
+If review is not the main safety mechanism, measure the loop.
+
+- Change size
+- Time to detect bad change
+- Time to rollback
+- Fraction of changes with automated evidence
+- Canary escape rate
+- Alert precision
+- Repeated incident themes
+- Reviewer time spent per unit of risk
+
+<!--
+These are not all perfect metrics. The point is to move measurement away from
+"did a human approve it?" toward whether the system catches and contains harm.
+-->
+
+---
+
+# The useful split
+
+Keep:
+
+- controls that shorten feedback loops
+- controls that exercise real behavior
+- controls that reduce blast radius
+- controls that improve after incidents
+
+<div class="mt-8">
+Replace:
+</div>
+
+- controls that require unlimited expert attention
+- controls that trust generated explanations
+- controls that batch risk into a single approval moment
+
+<!--
+This is the talk in one slide.
+-->
+
+---
+layout: statement
+---
+
+# Informal methods assume the contributor is unreliable.
+
+That is why they still work.
+
+<!--
+End with the title. The SRE lesson is durable because it never required perfect
+contributors. It required systems that noticed, contained, and learned.
+-->
+
+---
+
+# Closing
+
+Agentic AI makes software change easier to produce.
+
+It makes reliability engineering more important, not less.
+
+<div class="mt-10 text-2xl">
+Design for cheap change, expensive attention, and observable truth.
+</div>
+
 <style>
-.footnotes-sep {
-  @apply mt-5 opacity-10;
+:global(:root) {
+  --slidev-theme-primary: #b84e37;
 }
-.footnotes {
-  @apply text-sm opacity-75;
+
+:global(.slidev-layout) {
+  background:
+    radial-gradient(circle at 12% 15%, rgba(184, 78, 55, 0.16), transparent 30%),
+    radial-gradient(circle at 88% 85%, rgba(37, 85, 124, 0.14), transparent 35%),
+    #f8f1e8;
+  color: #24201b;
 }
-.footnote-backref {
-  display: none;
+
+:global(.slidev-layout h1) {
+  color: #3f342b;
+}
+
+:global(.slidev-layout strong) {
+  color: #b84e37;
+}
+
+:global(.slidev-layout pre) {
+  border: 1px solid rgba(63, 52, 43, 0.16);
+}
+
+:global(.slidev-layout .rounded) {
+  background: rgba(255, 255, 255, 0.46);
+  border-color: rgba(63, 52, 43, 0.18);
 }
 </style>
-
-<!--
-Notes can also sync with clicks
-
-[click] This will be highlighted after the first click
-
-[click] Highlighted with `count = ref(0)`
-
-[click:3] Last click (skip two clicks)
--->
-
----
-level: 2
----
-
-# Shiki Magic Move
-
-Powered by [shiki-magic-move](https://shiki-magic-move.netlify.app/), Slidev supports animations across multiple code snippets.
-
-Add multiple code blocks and wrap them with <code>````md magic-move</code> (four backticks) to enable the magic move. For example:
-
-````md magic-move {lines: true}
-```ts {*|2|*}
-// step 1
-const author = reactive({
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-})
-```
-
-```ts {*|1-2|3-4|3-4,8}
-// step 2
-export default {
-  data() {
-    return {
-      author: {
-        name: 'John Doe',
-        books: [
-          'Vue 2 - Advanced Guide',
-          'Vue 3 - Basic Guide',
-          'Vue 4 - The Mystery'
-        ]
-      }
-    }
-  }
-}
-```
-
-```ts
-// step 3
-export default {
-  data: () => ({
-    author: {
-      name: 'John Doe',
-      books: [
-        'Vue 2 - Advanced Guide',
-        'Vue 3 - Basic Guide',
-        'Vue 4 - The Mystery'
-      ]
-    }
-  })
-}
-```
-
-Non-code blocks are ignored.
-
-```vue
-<!-- step 4 -->
-<script setup>
-const author = {
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-}
-</script>
-```
-````
-
----
-
-# Components
-
-<div grid="~ cols-2 gap-4">
-<div>
-
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>` and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
-```
-
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
-
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
-</div>
-
-<!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
-
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
--->
-
----
-class: px-20
----
-
-# Themes
-
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
-
-<div grid="~ cols-2 gap-2" m="t-2">
-
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true" alt="">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true" alt="">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/guide/theme-addon#use-theme) and
-check out the [Awesome Themes Gallery](https://sli.dev/resources/theme-gallery).
-
----
-
-# Clicks Animations
-
-You can add `v-click` to elements to add a click animation.
-
-<div v-click>
-
-This shows up when you click the slide:
-
-```html
-<div v-click>This shows up when you click the slide.</div>
-```
-
-</div>
-
-<br>
-
-<v-click>
-
-The <span v-mark.red="3"><code>v-mark</code> directive</span>
-also allows you to add
-<span v-mark.circle.orange="4">inline marks</span>
-, powered by [Rough Notation](https://roughnotation.com/):
-
-```html
-<span v-mark.underline.orange>inline markers</span>
-```
-
-</v-click>
-
-<div mt-20 v-click>
-
-[Learn more](https://sli.dev/guide/animations#click-animation)
-
-</div>
-
----
-
-# Motions
-
-Motion animations are powered by [@vueuse/motion](https://motion.vueuse.org/), triggered by `v-motion` directive.
-
-```html
-<div
-  v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }"
-  :click-3="{ x: 80 }"
-  :leave="{ x: 1000 }"
->
-  Slidev
-</div>
-```
-
-<div class="w-60 relative">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-square.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-circle.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-triangle.png"
-      alt=""
-    />
-  </div>
-
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
-</div>
-
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
-}
-</script>
-
-<div
-  v-motion
-  :initial="{ x:35, y: 30, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
-
-[Learn more](https://sli.dev/guide/animations.html#motion)
-
-</div>
-
----
-
-# $\LaTeX$
-
-$\LaTeX$ is supported out-of-box. Powered by [$\KaTeX$](https://katex.org/).
-
-<div h-3 />
-
-Inline $\sqrt{3x-1}+(1+x)^2$
-
-Block
-$$ {1|3|all}
-\begin{aligned}
-\nabla \cdot \vec{E} &= \frac{\rho}{\varepsilon_0} \\
-\nabla \cdot \vec{B} &= 0 \\
-\nabla \times \vec{E} &= -\frac{\partial\vec{B}}{\partial t} \\
-\nabla \times \vec{B} &= \mu_0\vec{J} + \mu_0\varepsilon_0\frac{\partial\vec{E}}{\partial t}
-\end{aligned}
-$$
-
-[Learn more](https://sli.dev/features/latex)
-
----
-
-# Diagrams
-
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
-
-<div class="grid grid-cols-4 gap-5 pt-4 -mb-6">
-
-```mermaid {scale: 0.5, alt: 'A simple sequence diagram'}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
-
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
-```mermaid
-mindmap
-  root((mindmap))
-    Origins
-      Long history
-      ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectiveness<br/>and features
-      On Automatic creation
-        Uses
-            Creative techniques
-            Strategic planning
-            Argument mapping
-    Tools
-      Pen and paper
-      Mermaid
-```
-
-```plantuml {scale: 0.7}
-@startuml
-
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
-}
-
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
-}
-
-cloud {
-  [Example 1]
-}
-
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
-}
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
-```
-
-</div>
-
-Learn more: [Mermaid Diagrams](https://sli.dev/features/mermaid) and [PlantUML Diagrams](https://sli.dev/features/plantuml)
-
----
-foo: bar
-dragPos:
-  square: 691,32,167,_,-16
----
-
-# Draggable Elements
-
-Double-click on the draggable elements to edit their positions.
-
-<br>
-
-###### Directive Usage
-
-```md
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-```
-
-<br>
-
-###### Component Usage
-
-```md
-<v-drag text-3xl>
-  <div class="i-carbon:arrow-up" />
-  Use the `v-drag` component to have a draggable container!
-</v-drag>
-```
-
-<v-drag pos="663,206,261,_,-15">
-  <div text-center text-3xl border border-main rounded>
-    Double-click me!
-  </div>
-</v-drag>
-
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-
-###### Draggable Arrow
-
-```md
-<v-drag-arrow two-way />
-```
-
-<v-drag-arrow pos="67,452,253,46" two-way op70 />
-
----
-src: ./pages/imported-slides.md
-hide: false
----
-
----
-
-# Monaco Editor
-
-Slidev provides built-in Monaco Editor support.
-
-Add `{monaco}` to the code block to turn it into an editor:
-
-```ts {monaco}
-import { ref } from 'vue'
-import { emptyArray } from './external'
-
-const arr = ref(emptyArray(10))
-```
-
-Use `{monaco-run}` to create an editor that can execute the code directly in the slide:
-
-```ts {monaco-run}
-import { version } from 'vue'
-import { emptyArray, sayHello } from './external'
-
-sayHello()
-console.log(`vue ${version}`)
-console.log(emptyArray<number>(10).reduce(fib => [...fib, fib.at(-1)! + fib.at(-2)!], [1, 1]))
-```
-
----
-layout: center
-class: text-center
----
-
-# Learn More
-
-[Documentation](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/resources/showcases)
-
-<PoweredBySlidev mt-10 />
