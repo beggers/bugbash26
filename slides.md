@@ -67,6 +67,39 @@ The segue: "That loop is what this talk is about."
 -->
 
 ---
+layout: two-cols
+layoutClass: gap-12 items-center
+---
+
+<!--
+Replace this placeholder with an image when ready, for example:
+<img src="/me.jpg" alt="Ben speaking" class="h-110 w-full object-cover rounded-2xl shadow-xl" />
+-->
+
+<div class="h-110 w-full rounded-2xl border border-black/15 bg-white/45 shadow-xl flex items-center justify-center">
+  <div class="text-center opacity-60">
+    <div class="text-4xl font-bold">Photo</div>
+    <div class="mt-3 text-lg">your picture goes here</div>
+  </div>
+</div>
+
+::right::
+
+# About me
+
+<ul class="mt-10 space-y-5 text-2xl leading-normal">
+  <li v-click>Your name / role</li>
+  <li v-click>The reliability scar tissue you bring to this talk</li>
+  <li v-click>Why agentic tools are now part of your workflow</li>
+  <li v-click>The thing you want the audience to remember about you</li>
+</ul>
+
+<!--
+These bullet points are placeholders. Each li has v-click so the bullets appear
+one at a time while the rest of the deck remains transition-free.
+-->
+
+---
 layout: statement
 ---
 
