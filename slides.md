@@ -1,38 +1,66 @@
 ---
 theme: seriph
-title: Congratulations, you are now a tech lead
+title: Nothing has changed about software development
 info: |
-  ## Congratulations, you are now a tech lead
+  ## Nothing has changed about software development
 class: text-left
 drawings:
   persist: false
 duration: 25min
 mdc: true
 
-- Junior vs senior engineers
-  - Junior engineers write code that works
-  - Senior engineers define the sandbox and interfaces etc
-- Things are different now
-  - Models are better
-  - Token economics are different
-- This changes software development and management:
-  - We no longer do the cognitive effort that historically came with writing code
-  - But we still have to do cognitive effort!
-  - But where is the bedrock upon which we can do that cognitive effort?
-    - Well, it's still code. But the interfaces and types are much much more important, and the implementation is much much less important.
-    - Models are still very bad at interface and API design.
-- Game
-  - Pando/turtle kv thing
-  - Rebar tests
-  - Contrafact UUID soft-linking
-  - 
-- Hot takes
-  - Code review is half-dead: only review interfaces and schemas.
-  - Really good test harnesses are much more important now. Correctness is stochastic, which has always been true for engineering leaders.
+- How software development historically worked
+  - Writing code was never just typing
+  - It was where a huge amount of design thinking happened
+  - As we wrote, we discovered names, data shapes, boundaries, sequencing, error cases, and invariants
+  - Code review worked because the diff contained both the implementation and much of the thinking
+- The process was always stochastic
+  - It felt deterministic when you were deep in the implementation weeds
+  - Zoom out far enough and software was always probabilistic: humans made guesses, missed context, introduced regressions, and learned from feedback
+  - Reliability always came from preserving codebase invariants, not from every individual change being obviously correct
+  - I did not understand this when I was mostly focused on getting my own code to work
+- What the uber tech lead was already doing
+  - Historically you might have one very senior tech lead for 50 more junior engineers
+  - That person could not think through every line themselves
+  - They thought through interfaces, contracts, ownership boundaries, failure modes, observability, and rollout safety
+  - They made the system hard to misuse and easy to verify
+- What changed in the last year
+  - Models crossed a usefulness threshold
+  - They can generate whole changes, not just snippets
+  - Code became cheap enough to generate, reject, regenerate, and throw away
+  - The workflow moved from writing the implementation to specifying, generating, evaluating, and iterating
+- What that does to cognition
+  - Less thinking happens while manually laying out the code
+  - More thinking has to happen before generation: what do I mean, what is allowed, what is forbidden?
+  - More thinking has to happen after generation: did the result preserve the intent?
+- The game
+  - I describe the prompt
+  - I describe the system the human had in mind
+  - The audience guesses what the AI generated
+  - The reveal is funny; the lesson is what the prompt, interface, test, or monitor failed to constrain
+- Game examples
+  - Pando/turtle KV thing: wrong system shape
+  - Rebar tests: tests matched the form but not the intent
+  - Contrafact UUID soft-linking: plausible abstraction, broken identity model
+- What stayed the same
+  - Correctness is still expensive
+  - Intent is still hard to communicate
+  - Interfaces still determine what changes are easy, safe, and obvious
+  - Tests still encode what we care about
+  - Monitoring still catches what review and tests miss
+- How to think about AI-generated code
+  - Treat the model like a very fast, context-limited junior engineer
+  - Do not try to scale by reviewing every generated line
+  - Scale by designing better prompts, APIs, types, invariants, evals, dashboards, and rollback paths
+- Closing claim
+  - Software development has not meaningfully changed
+  - What changed is that everyone now has to do the tech lead parts
+  - For the average engineer, the job feels very different
+  - But the important process is the same: specify intent, preserve invariants, verify behavior, operate safely
 
 ---
 
-# Informal Methods
+# Nothing has changed about software development
 
 Reliability lessons for an era of agentic AI tools
 
@@ -46,12 +74,9 @@ BugBash 2026
 layout: statement
 ---
 
-# The robot and the service.
+# An entertaining anecdote to start the talk
 
 A recent story of an AI being dumb.
-
-<!--
--->
 
 ---
 layout: two-cols
@@ -82,23 +107,34 @@ Replace this placeholder with an image when ready, for example:
 
 ---
 
+# A disclaimer: the economics of working at a frontier lab
+
+---
+
 # What I'm going to tell you
 
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>Why this talk is interesting now but previously wasn't</li>
-  <li v-click>The strange token economics of working at an AI lab</li>
-  <li v-click>Some other things</li>
+  <li v-click>How software development actually used to work</li>
+  <li v-click>something something AI models</li>
+  <li v-click>Why software development has not changed</li>
 </ul>
 
 ---
 
-
-
-# Formal methods: an informal definition
+# Game: Pando
 
 ---
 
-# Informal methods: an informal definition
+# Part 1: How software development used to work
+
+---
+
+# Game: Rebar
+
+---
+
+
+# Part 2: What's different now
 
 ---
 
@@ -115,37 +151,14 @@ Replace this placeholder with an image when ready, for example:
 </div>
 
 ---
-
-# The token economics of working at an AI lab
-
-Maybe the future, maybe tulip madness
-
----
 layout: statement
 ---
 
-# Good news: We are no longer code-scarce
+# Game: Contrafact
 
 ---
 
-# Bad news: We are still human-attention-scarce
-
----
-
-# Accessible bedrock truth is no longer code
-
----
-
-# Some informal methods still work. Some don't.
-
-
----
-
-# Code review is dead
-
----
-
-# Monitoring is not dead
+# Part 3: Nothing new under the sun
 
 ---
 
