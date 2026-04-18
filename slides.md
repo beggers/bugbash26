@@ -1,16 +1,35 @@
 ---
 theme: seriph
-title: Informal Methods
+title: Congratulations, you are now a tech lead
 info: |
-  ## Informal Methods
-
-  A BugBash 2026 talk about which traditional SRE reliability tools still
-  work in an era of agentic AI, and which human-review habits stop scaling.
+  ## Congratulations, you are now a tech lead
 class: text-left
 drawings:
   persist: false
 duration: 25min
 mdc: true
+
+- Junior vs senior engineers
+  - Junior engineers write code that works
+  - Senior engineers define the sandbox and interfaces etc
+- Things are different now
+  - Models are better
+  - Token economics are different
+- This changes software development and management:
+  - We no longer do the cognitive effort that historically came with writing code
+  - But we still have to do cognitive effort!
+  - But where is the bedrock upon which we can do that cognitive effort?
+    - Well, it's still code. But the interfaces and types are much much more important, and the implementation is much much less important.
+    - Models are still very bad at interface and API design.
+- Game
+  - Pando/turtle kv thing
+  - Rebar tests
+  - Contrafact UUID soft-linking
+  - 
+- Hot takes
+  - Code review is half-dead: only review interfaces and schemas.
+  - Really good test harnesses are much more important now. Correctness is stochastic, which has always been true for engineering leaders.
+
 ---
 
 # Informal Methods
@@ -18,14 +37,10 @@ mdc: true
 Reliability lessons for an era of agentic AI tools
 
 <div class="mt-12 text-xl opacity-80">
+Ben Eggers
+
 BugBash 2026
 </div>
-
-<!--
-The framing: this is not a talk about replacing formal methods. It is about the
-informal engineering controls SRE already uses when correctness is too large to
-prove locally and too important to leave to vibes.
--->
 
 ---
 layout: statement
@@ -57,23 +72,33 @@ Replace this placeholder with an image when ready, for example:
 
 ::right::
 
-# About me
+# Hello I am Ben
 
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>Your name / role</li>
-  <li v-click>The reliability scar tissue you bring to this talk</li>
-  <li v-click>Why agentic tools are now part of your workflow</li>
-  <li v-click>The thing you want the audience to remember about you</li>
+  <li v-click>SRE Extraordinaire</li>
+  <li v-click>Infrastructure @ OpenAI</li>
+  <li v-click>Former translator, former therapist, PCT hiker, trumpet player</li>
 </ul>
-
-<!--
-These bullet points are placeholders. Each li has v-click so the bullets appear
-one at a time while the rest of the deck remains transition-free.
--->
 
 ---
 
 # What I'm going to tell you
+
+<ul class="mt-10 space-y-5 text-2xl leading-normal">
+  <li v-click>Why this talk is interesting now but previously wasn't</li>
+  <li v-click>The strange token economics of working at an AI lab</li>
+  <li v-click>Some other things</li>
+</ul>
+
+---
+
+
+
+# Formal methods: an informal definition
+
+---
+
+# Informal methods: an informal definition
 
 ---
 
@@ -88,6 +113,39 @@ one at a time while the rest of the deck remains transition-free.
     <!-- Right-column bullets -->
   </ul>
 </div>
+
+---
+
+# The token economics of working at an AI lab
+
+Maybe the future, maybe tulip madness
+
+---
+layout: statement
+---
+
+# Good news: We are no longer code-scarce
+
+---
+
+# Bad news: We are still human-attention-scarce
+
+---
+
+# Accessible bedrock truth is no longer code
+
+---
+
+# Some informal methods still work. Some don't.
+
+
+---
+
+# Code review is dead
+
+---
+
+# Monitoring is not dead
 
 ---
 
@@ -126,7 +184,7 @@ layout: statement
 }
 
 :global(.slidev-layout.cover h1) {
-  color: #3f342b;
+  color: #3f342b !important;
 }
 
 :global(.slidev-layout strong) {
