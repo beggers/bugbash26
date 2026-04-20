@@ -3,62 +3,25 @@ theme: seriph
 title: Nothing has changed about software development
 info: |
   ## Nothing has changed about software development
+  Reliability lessons for an era of agentic AI tools
 class: text-left
 drawings:
   persist: false
 duration: 25min
 mdc: true
-
-- How software development historically worked
-  - Writing code was never just typing
-  - It was where a huge amount of design thinking happened
-  - As we wrote, we discovered names, data shapes, boundaries, sequencing, error cases, and invariants
-  - Code review worked because the diff contained both the implementation and much of the thinking
-- The process was always stochastic
-  - It felt deterministic when you were deep in the implementation weeds
-  - Zoom out far enough and software was always probabilistic: humans made guesses, missed context, introduced regressions, and learned from feedback
-  - Reliability always came from preserving codebase invariants, not from every individual change being obviously correct
-  - I did not understand this when I was mostly focused on getting my own code to work
-- What the uber tech lead was already doing
-  - Historically you might have one very senior tech lead for 50 more junior engineers
-  - That person could not think through every line themselves
-  - They thought through interfaces, contracts, ownership boundaries, failure modes, observability, and rollout safety
-  - They made the system hard to misuse and easy to verify
-- What changed in the last year
-  - Models crossed a usefulness threshold
-  - They can generate whole changes, not just snippets
-  - Code became cheap enough to generate, reject, regenerate, and throw away
-  - The workflow moved from writing the implementation to specifying, generating, evaluating, and iterating
-- What that does to cognition
-  - Less thinking happens while manually laying out the code
-  - More thinking has to happen before generation: what do I mean, what is allowed, what is forbidden?
-  - More thinking has to happen after generation: did the result preserve the intent?
-- The game
-  - I describe the prompt
-  - I describe the system the human had in mind
-  - The audience guesses what the AI generated
-  - The reveal is funny; the lesson is what the prompt, interface, test, or monitor failed to constrain
-- Game examples
-  - Pando/turtle KV thing: wrong system shape
-  - Rebar tests: tests matched the form but not the intent
-  - Contrafact UUID soft-linking: plausible abstraction, broken identity model
-- What stayed the same
-  - Correctness is still expensive
-  - Intent is still hard to communicate
-  - Interfaces still determine what changes are easy, safe, and obvious
-  - Tests still encode what we care about
-  - Monitoring still catches what review and tests miss
-- How to think about AI-generated code
-  - Treat the model like a very fast, context-limited junior engineer
-  - Do not try to scale by reviewing every generated line
-  - Scale by designing better prompts, APIs, types, invariants, evals, dashboards, and rollback paths
-- Closing claim
-  - Software development has not meaningfully changed
-  - What changed is that everyone now has to do the tech lead parts
-  - For the average engineer, the job feels very different
-  - But the important process is the same: specify intent, preserve invariants, verify behavior, operate safely
-
 ---
+
+<!--
+Working spine:
+- Main claim: code got cheap; correctness did not.
+- The talk is not "AI is dumb." The talk is "the missing constraint still matters."
+- Each game should reveal one reliability lesson:
+  1. Pando: the prompt/interface allowed the wrong system shape.
+  2. Rebar: the tests matched the form but not the intent.
+  3. Contrafact: a plausible abstraction broke the identity model.
+- Closing move: agentic coding makes more engineers responsible for tech-lead work:
+  specifying intent, preserving invariants, verifying behavior, and operating safely.
+-->
 
 # Nothing has changed about software development
 
@@ -74,9 +37,31 @@ BugBash 2026
 layout: statement
 ---
 
-# An entertaining anecdote to start the talk
+# Code got cheap. Correctness did not.
 
-A recent story of an AI being dumb.
+<!--
+Cold open with a short AI failure story.
+
+Target ending:
+"The funny part is that the model did something absurd. The useful part is that
+it did something allowed by the constraints we gave it."
+-->
+
+---
+layout: statement
+---
+
+# I asked for one thing.
+
+<div class="mt-10 text-4xl leading-normal">
+The model produced a coherent implementation of a different thing.
+</div>
+
+<!--
+Use the fastest anecdote here. It should take less than two minutes.
+Avoid explaining the whole system. The only job is to create the question:
+"what, exactly, did we fail to specify?"
+-->
 
 ---
 layout: two-cols
@@ -85,10 +70,10 @@ layoutClass: gap-12 items-center
 
 <!--
 Replace this placeholder with an image when ready, for example:
-<img src="/me.jpg" alt="Ben speaking" class="h-110 w-full object-cover rounded-2xl shadow-xl" />
+<img src="/me.jpg" alt="Ben speaking" class="h-110 w-full object-cover rounded-lg shadow-xl" />
 -->
 
-<div class="h-110 w-full rounded-2xl border border-black/15 bg-white/45 shadow-xl flex items-center justify-center">
+<div class="h-110 w-full rounded-lg border border-black/15 bg-white/45 shadow-xl flex items-center justify-center">
   <div class="text-center opacity-60">
     <div class="text-4xl font-bold">Photo</div>
     <div class="mt-3 text-lg">your picture goes here</div>
@@ -107,76 +92,404 @@ Replace this placeholder with an image when ready, for example:
 
 ---
 
-# A disclaimer: the economics of working at a frontier lab
-
----
-
-# What I'm going to tell you
+# One disclaimer
 
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>How software development actually used to work</li>
-  <li v-click>something something AI models</li>
-  <li v-click>Why software development has not changed</li>
+  <li v-click>Frontier labs are not normal economic environments.</li>
+  <li v-click>This is not a labor market prediction.</li>
+  <li v-click>This is a talk about reliability: how we keep software correct when code is easier to produce.</li>
 </ul>
 
 ---
 
-# Game: Pando
+# What I am going to tell you
+
+<div class="mt-12 text-3xl leading-relaxed">
+AI changes <strong>where the work happens</strong>.
+It does not change <strong>what reliability requires</strong>.
+</div>
+
+<ul class="mt-10 space-y-4 text-2xl leading-normal">
+  <li v-click>Writing code was always doing design work.</li>
+  <li v-click>Agentic tools move that work before and after generation.</li>
+  <li v-click>The important job is still: specify intent, preserve invariants, verify behavior, operate safely.</li>
+</ul>
 
 ---
 
-# Part 1: How software development used to work
+# The game
+
+<div class="mt-10 grid grid-cols-3 gap-6 text-xl leading-normal">
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Step 1</div>
+    <div class="mt-4 text-2xl font-bold">I show the prompt</div>
+  </div>
+
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Step 2</div>
+    <div class="mt-4 text-2xl font-bold">You guess the failure</div>
+  </div>
+
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Step 3</div>
+    <div class="mt-4 text-2xl font-bold">We name the missing constraint</div>
+  </div>
+</div>
+
+<div v-click class="mt-12 text-3xl leading-normal">
+The reveal is funny. The lesson is what the system failed to constrain.
+</div>
 
 ---
 
-# How I used to do a project: idealized
+# Game 1: Pando
+
+<div class="mt-8 grid grid-cols-2 gap-8 text-xl leading-normal">
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Prompt</div>
+    <div class="mt-4 text-2xl">Paste the smallest exact prompt that sets up the turtle KV example.</div>
+  </div>
+
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Human intent</div>
+    <div class="mt-4 text-2xl">Describe the system shape you thought was obvious.</div>
+  </div>
+</div>
+
+<div v-click class="mt-10 text-4xl font-bold">
+Audience question: what system did the model build instead?
+</div>
+
+<!--
+This is the "wrong system shape" example.
+Keep the setup short. The audience does not need every implementation detail.
+They need enough context to see that the prompt/interface allowed the wrong shape.
+-->
+
+---
+layout: statement
+---
+
+# Lesson 1: prompts are interfaces
 
 ---
 
-# The slowness of writing code was load-bearing
+# The model did not violate the interface
+
+<div class="mt-10 text-3xl leading-normal">
+The interface allowed the wrong system.
+</div>
+
+<ul class="mt-10 space-y-4 text-2xl leading-normal">
+  <li v-click>Names and examples are part of the API.</li>
+  <li v-click>File ownership and data ownership are part of the API.</li>
+  <li v-click>"Do the obvious thing" is not a constraint.</li>
+</ul>
+
+---
+layout: statement
+---
+
+# Part 1
+
+How software development used to work
 
 ---
 
-# The act of writing software has always been stochastic
+# Writing code was never just typing
+
+<ul class="mt-10 space-y-5 text-2xl leading-normal">
+  <li v-click>We discovered names.</li>
+  <li v-click>We discovered data shapes.</li>
+  <li v-click>We discovered sequencing, error cases, and invariants.</li>
+  <li v-click>We discovered what the existing system was trying to protect.</li>
+</ul>
 
 ---
 
-# Layers of software verification
+# The slowness was load-bearing
+
+<div class="mt-10 text-3xl leading-normal">
+When code was expensive to produce, the act of producing it forced a lot of review to happen before review.
+</div>
+
+<ul class="mt-10 space-y-4 text-2xl leading-normal">
+  <li v-click>You noticed awkward names because you had to use them.</li>
+  <li v-click>You noticed bad boundaries because you had to cross them.</li>
+  <li v-click>You noticed missing cases because you had to wire the path end to end.</li>
+</ul>
 
 ---
 
-# Game: Rebar
+# Software was always stochastic
+
+<div class="mt-10 text-3xl leading-normal">
+It felt deterministic when we were deep in the implementation weeds.
+</div>
+
+<ul class="mt-10 space-y-4 text-2xl leading-normal">
+  <li v-click>Humans made guesses.</li>
+  <li v-click>Humans missed context.</li>
+  <li v-click>Humans introduced regressions.</li>
+  <li v-click>Reliability came from layered feedback, not individual certainty.</li>
+</ul>
 
 ---
 
+# The tech lead pattern
 
-# Part 2: Why people think software has changed
+<div class="mt-10 text-3xl leading-normal">
+A senior tech lead was never scaling by personally reasoning through every line.
+</div>
+
+<ul class="mt-10 space-y-4 text-2xl leading-normal">
+  <li v-click>They shaped interfaces and ownership boundaries.</li>
+  <li v-click>They protected contracts and invariants.</li>
+  <li v-click>They made failure visible through tests, monitors, and rollout plans.</li>
+  <li v-click>They made the system hard to misuse and easy to verify.</li>
+</ul>
 
 ---
 
-# AI models are better than they were a year ago
+# Game 2: Rebar
+
+<div class="mt-8 grid grid-cols-2 gap-8 text-xl leading-normal">
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Prompt</div>
+    <div class="mt-4 text-2xl">Paste the request that produced tests which looked right.</div>
+  </div>
+
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Human intent</div>
+    <div class="mt-4 text-2xl">Describe the behavior the tests were supposed to protect.</div>
+  </div>
+</div>
+
+<div v-click class="mt-10 text-4xl font-bold">
+Audience question: what did the tests actually reward?
+</div>
+
+<!--
+This is the "tests matched the form but not the intent" example.
+The punchline should be about the evaluation target, not merely "bad generated tests."
+-->
+
+---
+layout: statement
+---
+
+# Lesson 2: tests can pass the wrong thing
+
+---
+
+# Tests encode what we care about
+
+<div class="mt-10 text-3xl leading-normal">
+If they encode syntax, the model optimizes for syntax.
+If they encode behavior, the model has to preserve behavior.
+</div>
+
+<ul class="mt-10 space-y-4 text-2xl leading-normal">
+  <li v-click>Good tests make intent executable.</li>
+  <li v-click>Weak tests make plausibility executable.</li>
+  <li v-click>Generated code is only as good as the feedback loop it is inside.</li>
+</ul>
+
+---
+layout: statement
+---
+
+# Part 2
+
+Why it feels like everything changed
+
+---
+
+# Models crossed a usefulness threshold
 
 <div class="mt-12 grid grid-cols-2 gap-10">
   <ul class="space-y-4 text-2xl leading-normal">
-    <!-- Left-column bullets -->
+    <li v-click>They generate whole changes, not snippets.</li>
+    <li v-click>They can navigate unfamiliar code faster than a human can type.</li>
+    <li v-click>They can produce many plausible approaches cheaply.</li>
   </ul>
 
   <ul class="space-y-4 text-2xl leading-normal">
-    <!-- Right-column bullets -->
+    <li v-click>Rejecting code became cheap.</li>
+    <li v-click>Regenerating code became cheap.</li>
+    <li v-click>Throwing code away became cheap.</li>
   </ul>
 </div>
 
 ---
 
-# Part 3: Nothing new under the sun
+# The cognition moved
+
+<div class="mt-10 grid grid-cols-3 gap-6 text-xl leading-normal">
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Before</div>
+    <div class="mt-4 text-2xl">Thinking while manually laying out the code</div>
+  </div>
+
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">During</div>
+    <div class="mt-4 text-2xl">Specifying what is allowed, forbidden, and important</div>
+  </div>
+
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">After</div>
+    <div class="mt-4 text-2xl">Checking whether the result preserved the intent</div>
+  </div>
+</div>
+
+<div v-click class="mt-12 text-3xl leading-normal">
+The thinking did not disappear. It moved out of the typing loop.
+</div>
 
 ---
 
-# Game: Contrafact
+# This is why it feels so different
+
+<div class="mt-10 text-4xl leading-normal">
+You can now skip the part of the process that used to reveal your own ambiguity.
+</div>
+
+<div v-click class="mt-12 text-3xl leading-normal">
+The ambiguity is still there. It just lands in code faster.
+</div>
+
+---
+layout: statement
+---
+
+# Part 3
+
+Nothing new under the sun
+
+---
+
+# Reliable software has always needed the same loop
+
+<div class="mt-10 grid grid-cols-2 gap-6 text-2xl leading-normal">
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <strong>Specify intent</strong>
+    <div class="mt-3 opacity-80">What are we actually trying to preserve?</div>
+  </div>
+
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <strong>Preserve invariants</strong>
+    <div class="mt-3 opacity-80">What must remain true across changes?</div>
+  </div>
+
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <strong>Verify behavior</strong>
+    <div class="mt-3 opacity-80">What feedback tells us we are right?</div>
+  </div>
+
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <strong>Operate safely</strong>
+    <div class="mt-3 opacity-80">How do we see, contain, and reverse failure?</div>
+  </div>
+</div>
+
+---
+
+# Game 3: Contrafact
+
+<div class="mt-8 grid grid-cols-2 gap-8 text-xl leading-normal">
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Prompt</div>
+    <div class="mt-4 text-2xl">Paste the request that produced the UUID soft-linking abstraction.</div>
+  </div>
+
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Human intent</div>
+    <div class="mt-4 text-2xl">Describe the identity model the code needed to preserve.</div>
+  </div>
+</div>
+
+<div v-click class="mt-10 text-4xl font-bold">
+Audience question: which identity was real?
+</div>
+
+<!--
+This is the "plausible abstraction, broken identity model" example.
+The lesson should land on invariants: the abstraction was attractive because it
+looked cleaner than the domain, but the domain identity model was the real constraint.
+-->
+
+---
+layout: statement
+---
+
+# Lesson 3: plausible abstractions are dangerous
+
+---
+
+# The abstraction looked cleaner than the domain
+
+<div class="mt-10 text-3xl leading-normal">
+But the domain was where the invariant lived.
+</div>
+
+<ul class="mt-10 space-y-4 text-2xl leading-normal">
+  <li v-click>AI is very good at making plausible shapes.</li>
+  <li v-click>Plausible shapes are not the same thing as correct models.</li>
+  <li v-click>The review question is not "does this look like software?"</li>
+  <li v-click>The review question is "what invariant did this preserve or destroy?"</li>
+</ul>
+
+---
+
+# How to think about AI-generated code
+
+<div class="mt-10 text-3xl leading-normal">
+Treat the model like a very fast, context-limited junior engineer.
+</div>
+
+<ul class="mt-10 space-y-4 text-2xl leading-normal">
+  <li v-click>Do not try to scale by reviewing every generated line.</li>
+  <li v-click>Scale by improving prompts, APIs, types, tests, evals, dashboards, and rollback paths.</li>
+  <li v-click>The leverage is in the constraints around generation.</li>
+</ul>
+
+---
+
+# A practical checklist
+
+<div class="mt-10 grid grid-cols-2 gap-8 text-xl leading-normal">
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-2xl font-bold">Before generation</div>
+    <ul class="mt-5 space-y-3">
+      <li>Name the invariant.</li>
+      <li>Name the allowed files and ownership boundary.</li>
+      <li>Give one negative example.</li>
+      <li>Define what evidence will count as done.</li>
+    </ul>
+  </div>
+
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-2xl font-bold">After generation</div>
+    <ul class="mt-5 space-y-3">
+      <li>Read shape before lines.</li>
+      <li>Check changed interfaces and data models.</li>
+      <li>Run the feedback loop.</li>
+      <li>Know how to observe and roll back.</li>
+    </ul>
+  </div>
+</div>
 
 ---
 
 # What I told you
+
+<ul class="mt-10 space-y-5 text-2xl leading-normal">
+  <li v-click>Code got cheap. Correctness did not.</li>
+  <li v-click>Writing code used to force a lot of design thinking to happen implicitly.</li>
+  <li v-click>Agentic coding makes that thinking explicit: before generation and after generation.</li>
+  <li v-click>Everyone now has to do more of the tech lead parts.</li>
+  <li v-click>The loop is still the same: specify intent, preserve invariants, verify behavior, operate safely.</li>
+</ul>
 
 ---
 layout: statement
@@ -191,18 +504,12 @@ layout: statement
 }
 
 :global(.slidev-layout) {
-  background:
-    radial-gradient(circle at 12% 15%, rgba(184, 78, 55, 0.16), transparent 30%),
-    radial-gradient(circle at 88% 85%, rgba(37, 85, 124, 0.14), transparent 35%),
-    #f8f1e8;
+  background: #f8f1e8;
   color: #24201b;
 }
 
 :global(.slidev-layout.cover) {
-  background:
-    radial-gradient(circle at 12% 15%, rgba(184, 78, 55, 0.16), transparent 30%),
-    radial-gradient(circle at 88% 85%, rgba(37, 85, 124, 0.14), transparent 35%),
-    #f8f1e8 !important;
+  background: #f8f1e8 !important;
   color: #24201b !important;
 }
 
