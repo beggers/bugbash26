@@ -69,6 +69,7 @@ Replace this placeholder with an image when ready, for example:
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
   <li v-click>SRE Extraordinaire</li>
   <li v-click>Infrastructure @ OpenAI</li>
+  <li>6th-highest 7d token user @ OpenAI</li>
   <li v-click>Former translator, former therapist, PCT hiker, trumpet player</li>
 </ul>
 
@@ -84,7 +85,7 @@ Replace this placeholder with an image when ready, for example:
 
 ---
 
-# What I am going to tell you
+# TODO What I am going to tell you
 
 <div class="mt-12 text-3xl leading-relaxed">
 AI changes <strong>where the work happens</strong>.
@@ -102,25 +103,48 @@ It does not change <strong>what reliability requires</strong>.
 # The game
 
 <div class="mt-10 grid grid-cols-3 gap-6 text-xl leading-normal">
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+  <div v-click class="rounded-lg border border-black/15 bg-white/50 p-6">
     <div class="text-sm uppercase tracking-wider opacity-60">Step 1</div>
-    <div class="mt-4 text-2xl font-bold">I show the prompt</div>
+    <div class="mt-4 text-2xl font-bold">I tell you about the system</div>
   </div>
 
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+  <div v-click class="rounded-lg border border-black/15 bg-white/50 p-6">
     <div class="text-sm uppercase tracking-wider opacity-60">Step 2</div>
-    <div class="mt-4 text-2xl font-bold">You guess the failure</div>
+    <div class="mt-4 text-2xl font-bold">I tell you the prompt</div>
   </div>
 
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+  <div v-click class="rounded-lg border border-black/15 bg-white/50 p-6">
     <div class="text-sm uppercase tracking-wider opacity-60">Step 3</div>
-    <div class="mt-4 text-2xl font-bold">We name the missing constraint</div>
+    <div class="mt-4 text-2xl font-bold">You guess what I got</div>
   </div>
 </div>
 
-<div v-click class="mt-12 text-3xl leading-normal">
-The reveal is funny. The lesson is what the system failed to constrain.
+---
+
+# Game: Rebar
+
+<div class="mt-10 grid grid-cols-3 gap-6 text-xl leading-normal">
+  <div v-click class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Step 1</div>
+    <div class="mt-4 text-2xl font-bold">The goal: create a drop-in Rust replacement for Python's re module which was demonstrably faster</div>
+  </div>
+
+  <div v-click class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Step 2</div>
+    <div class="mt-4 text-2xl font-bold">The prompt: "Move closer to your goal."</div>
+  </div>
+
+  <div v-click class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Step 3</div>
+    <div class="mt-4 text-2xl font-bold">So: what did I end up with?</div>
+  </div>
 </div>
+
+---
+
+# Game: Rebar
+
+TODO rebar results
 
 ---
 
@@ -231,30 +255,6 @@ A senior tech lead was never scaling by personally reasoning through every line.
   <li v-click>They made the system hard to misuse and easy to verify.</li>
 </ul>
 
----
-
-# Game 2: Rebar
-
-<div class="mt-8 grid grid-cols-2 gap-8 text-xl leading-normal">
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <div class="text-sm uppercase tracking-wider opacity-60">Prompt</div>
-    <div class="mt-4 text-2xl">Paste the request that produced tests which looked right.</div>
-  </div>
-
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <div class="text-sm uppercase tracking-wider opacity-60">Human intent</div>
-    <div class="mt-4 text-2xl">Describe the behavior the tests were supposed to protect.</div>
-  </div>
-</div>
-
-<div v-click class="mt-10 text-4xl font-bold">
-Audience question: what did the tests actually reward?
-</div>
-
-<!--
-This is the "tests matched the form but not the intent" example.
-The punchline should be about the evaluation target, not merely "bad generated tests."
--->
 
 ---
 layout: statement
