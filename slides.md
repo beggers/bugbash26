@@ -142,7 +142,7 @@ It does not change <strong>what reliability requires</strong>.
 
 ---
 
-# Game: Rebar
+# TODO Game: Rebar
 
 TODO rebar results
 
@@ -166,11 +166,6 @@ TODO rebar results
 Audience question: what system did the model build instead?
 </div>
 
-<!--
-This is the "wrong system shape" example.
-Keep the setup short. The audience does not need every implementation detail.
-They need enough context to see that the prompt/interface allowed the wrong shape.
--->
 
 ---
 layout: statement
