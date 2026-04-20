@@ -11,18 +11,6 @@ duration: 25min
 mdc: true
 ---
 
-<!--
-Working spine:
-- Main claim: code got cheap; correctness did not.
-- The talk is not "AI is dumb." The talk is "the missing constraint still matters."
-- Each game should reveal one reliability lesson:
-  1. Pando: the prompt/interface allowed the wrong system shape.
-  2. Rebar: the tests matched the form but not the intent.
-  3. Contrafact: a plausible abstraction broke the identity model.
-- Closing move: agentic coding makes more engineers responsible for tech-lead work:
-  specifying intent, preserving invariants, verifying behavior, and operating safely.
--->
-
 # Nothing has changed about software development
 
 Reliability lessons for an era of agentic AI tools
@@ -69,9 +57,15 @@ Replace this placeholder with an image when ready, for example:
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
   <li v-click>SRE Extraordinaire</li>
   <li v-click>Infrastructure @ OpenAI</li>
-  <li>6th-highest 7d token user @ OpenAI</li>
+  <li>Prev. 8th-highest 7d token user @ OpenAI</li>
   <li v-click>Former translator, former therapist, PCT hiker, trumpet player</li>
 </ul>
+
+---
+
+# TODO But first a word from our sponsors
+
+Shout outs to colleagues who helped me sharpen these ideas or from whom I stole anecdotes.
 
 ---
 
@@ -147,53 +141,33 @@ It does not change <strong>what reliability requires</strong>.
 TODO rebar results
 
 ---
-
-# Game 1: Pando
-
-<div class="mt-8 grid grid-cols-2 gap-8 text-xl leading-normal">
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <div class="text-sm uppercase tracking-wider opacity-60">Prompt</div>
-    <div class="mt-4 text-2xl">Paste the smallest exact prompt that sets up the turtle KV example.</div>
-  </div>
-
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <div class="text-sm uppercase tracking-wider opacity-60">Human intent</div>
-    <div class="mt-4 text-2xl">Describe the system shape you thought was obvious.</div>
-  </div>
-</div>
-
-<div v-click class="mt-10 text-4xl font-bold">
-Audience question: what system did the model build instead?
-</div>
-
-
----
 layout: statement
 ---
 
-# Lesson 1: prompts are interfaces
+# Part 1: What writing code used to force
 
 ---
 
-# The model did not violate the interface
+# What writing code used to force
 
-<div class="mt-10 text-3xl leading-normal">
-The interface allowed the wrong system.
-</div>
+<ol class="mt-10 space-y-4 text-2xl leading-normal">
+  <li v-click>Decide intent.</li>
+  <li v-click>Own the implementation.</li>
+  <li v-click>Discover the shape of the problem.</li>
+  <li v-click>Turn boundaries into interfaces and contracts.</li>
+  <li v-click>Use human care as first-pass QA.</li>
+  <li v-click>Add external feedback: review, tests, rollout, production signals.</li>
+</ol>
 
-<ul class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>Names and examples are part of the API.</li>
-  <li v-click>File ownership and data ownership are part of the API.</li>
-  <li v-click>"Do the obvious thing" is not a constraint.</li>
+---
+
+# Humans thought about intent and implementation
+
+<ul class="mt-10 space-y-5 text-2xl leading-normal">
+  <li v-click>Someone knew what success was supposed to mean.</li>
+  <li v-click>Someone had to reconcile the code with the existing system.</li>
+  <li v-click>Someone was accountable for the awkward edge cases.</li>
 </ul>
-
----
-layout: statement
----
-
-# Part 1
-
-How software development used to work
 
 ---
 
@@ -222,243 +196,141 @@ When code was expensive to produce, the act of producing it forced a lot of revi
 
 ---
 
-# Software was always stochastic
+# For a tech lead, software development was always stochastic
 
 <div class="mt-10 text-3xl leading-normal">
-It felt deterministic when we were deep in the implementation weeds.
+It only felt deterministic because the uncertainty was spread across people and feedback loops.
 </div>
 
 <ul class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>Humans made guesses.</li>
-  <li v-click>Humans missed context.</li>
-  <li v-click>Humans introduced regressions.</li>
-  <li v-click>Reliability came from layered feedback, not individual certainty.</li>
-</ul>
-
----
-
-# The tech lead pattern
-
-<div class="mt-10 text-3xl leading-normal">
-A senior tech lead was never scaling by personally reasoning through every line.
-</div>
-
-<ul class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>They shaped interfaces and ownership boundaries.</li>
-  <li v-click>They protected contracts and invariants.</li>
-  <li v-click>They made failure visible through tests, monitors, and rollout plans.</li>
-  <li v-click>They made the system hard to misuse and easy to verify.</li>
-</ul>
-
-
----
-layout: statement
----
-
-# Lesson 2: tests can pass the wrong thing
-
----
-
-# Tests encode what we care about
-
-<div class="mt-10 text-3xl leading-normal">
-If they encode syntax, the model optimizes for syntax.
-If they encode behavior, the model has to preserve behavior.
-</div>
-
-<ul class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>Good tests make intent executable.</li>
-  <li v-click>Weak tests make plausibility executable.</li>
-  <li v-click>Generated code is only as good as the feedback loop it is inside.</li>
+  <li v-click>Design guesses became code.</li>
+  <li v-click>Review caught some missing context.</li>
+  <li v-click>Tests caught some broken behavior.</li>
+  <li v-click>Rollouts and production signals caught what escaped.</li>
 </ul>
 
 ---
 layout: statement
 ---
 
-# Part 2
+# TODO Game: Database-y thing
 
-Why it feels like everything changed
+<div class="mt-8 grid grid-cols-2 gap-8 text-xl leading-normal">
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Prompt</div>
+    <div class="mt-4 text-2xl">Paste the smallest exact prompt that sets up the turtle KV example.</div>
+  </div>
+
+  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Human intent</div>
+    <div class="mt-4 text-2xl">Describe the system shape you thought was obvious.</div>
+  </div>
+</div>
+
+<div v-click class="mt-10 text-4xl font-bold">
+Audience question: what system did the model build instead?
+</div>
+
+---
+layout: statement
+---
+
+# Part 2: But models are good now
 
 ---
 
 # Models crossed a usefulness threshold
 
-<div class="mt-12 grid grid-cols-2 gap-10">
-  <ul class="space-y-4 text-2xl leading-normal">
-    <li v-click>They generate whole changes, not snippets.</li>
-    <li v-click>They can navigate unfamiliar code faster than a human can type.</li>
-    <li v-click>They can produce many plausible approaches cheaply.</li>
-  </ul>
-
-  <ul class="space-y-4 text-2xl leading-normal">
-    <li v-click>Rejecting code became cheap.</li>
-    <li v-click>Regenerating code became cheap.</li>
-    <li v-click>Throwing code away became cheap.</li>
-  </ul>
-</div>
-
----
-
-# The cognition moved
-
-<div class="mt-10 grid grid-cols-3 gap-6 text-xl leading-normal">
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <div class="text-sm uppercase tracking-wider opacity-60">Before</div>
-    <div class="mt-4 text-2xl">Thinking while manually laying out the code</div>
-  </div>
-
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <div class="text-sm uppercase tracking-wider opacity-60">During</div>
-    <div class="mt-4 text-2xl">Specifying what is allowed, forbidden, and important</div>
-  </div>
-
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <div class="text-sm uppercase tracking-wider opacity-60">After</div>
-    <div class="mt-4 text-2xl">Checking whether the result preserved the intent</div>
-  </div>
-</div>
-
-<div v-click class="mt-12 text-3xl leading-normal">
-The thinking did not disappear. It moved out of the typing loop.
-</div>
-
----
-
-# This is why it feels so different
-
-<div class="mt-10 text-4xl leading-normal">
-You can now skip the part of the process that used to reveal your own ambiguity.
-</div>
-
-<div v-click class="mt-12 text-3xl leading-normal">
-The ambiguity is still there. It just lands in code faster.
-</div>
-
 ---
 layout: statement
 ---
 
-# Part 3
-
-Nothing new under the sun
+# What models need to write good software
 
 ---
 
-# Reliable software has always needed the same loop
+# What models need to write good software
 
-<div class="mt-10 grid grid-cols-2 gap-6 text-2xl leading-normal">
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <strong>Specify intent</strong>
-    <div class="mt-3 opacity-80">What are we actually trying to preserve?</div>
-  </div>
-
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <strong>Preserve invariants</strong>
-    <div class="mt-3 opacity-80">What must remain true across changes?</div>
-  </div>
-
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <strong>Verify behavior</strong>
-    <div class="mt-3 opacity-80">What feedback tells us we are right?</div>
-  </div>
-
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <strong>Operate safely</strong>
-    <div class="mt-3 opacity-80">How do we see, contain, and reverse failure?</div>
-  </div>
-</div>
-
----
-
-# Game 3: Contrafact
-
-<div class="mt-8 grid grid-cols-2 gap-8 text-xl leading-normal">
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <div class="text-sm uppercase tracking-wider opacity-60">Prompt</div>
-    <div class="mt-4 text-2xl">Paste the request that produced the UUID soft-linking abstraction.</div>
-  </div>
-
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <div class="text-sm uppercase tracking-wider opacity-60">Human intent</div>
-    <div class="mt-4 text-2xl">Describe the identity model the code needed to preserve.</div>
-  </div>
-</div>
-
-<div v-click class="mt-10 text-4xl font-bold">
-Audience question: which identity was real?
-</div>
-
-<!--
-This is the "plausible abstraction, broken identity model" example.
-The lesson should land on invariants: the abstraction was attractive because it
-looked cleaner than the domain, but the domain identity model was the real constraint.
--->
-
----
-layout: statement
----
-
-# Lesson 3: plausible abstractions are dangerous
-
----
-
-# The abstraction looked cleaner than the domain
-
-<div class="mt-10 text-3xl leading-normal">
-But the domain was where the invariant lived.
-</div>
-
-<ul class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>AI is very good at making plausible shapes.</li>
-  <li v-click>Plausible shapes are not the same thing as correct models.</li>
-  <li v-click>The review question is not "does this look like software?"</li>
-  <li v-click>The review question is "what invariant did this preserve or destroy?"</li>
+<ul class="mt-10 space-y-5 text-2xl leading-normal">
+  <li v-click><strong>Intent:</strong> what are we actually trying to preserve or change?</li>
+  <li v-click><strong>Context:</strong> what existing shapes, constraints, and conventions matter?</li>
+  <li v-click><strong>Design pressure:</strong> what boundaries, interfaces, and invariants should guide the change?</li>
+  <li v-click><strong>Feedback:</strong> how do we know it worked, got faster, stayed safe, and can be rolled back?</li>
 </ul>
 
----
-
-# How to think about AI-generated code
-
-<div class="mt-10 text-3xl leading-normal">
-Treat the model like a very fast, context-limited junior engineer.
+<div v-click class="mt-10 text-3xl leading-normal">
+Humans used to discover much of this by slowly writing the code.
+Models need it made explicit before and after generation.
 </div>
 
-<ul class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>Do not try to scale by reviewing every generated line.</li>
-  <li v-click>Scale by improving prompts, APIs, types, tests, evals, dashboards, and rollback paths.</li>
-  <li v-click>The leverage is in the constraints around generation.</li>
+---
+
+# Intent: give it decisions
+
+<ul class="mt-10 space-y-5 text-2xl leading-normal">
+  <li v-click>State the behavior change, not just the code change.</li>
+  <li v-click>Name what must not change.</li>
+  <li v-click>Declare the tradeoff you want it to make.</li>
+  <li v-click>Include one or two examples that make the desired behavior unambiguous.</li>
 </ul>
 
----
-
-# A practical checklist
-
-<div class="mt-10 grid grid-cols-2 gap-8 text-xl leading-normal">
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <div class="text-2xl font-bold">Before generation</div>
-    <ul class="mt-5 space-y-3">
-      <li>Name the invariant.</li>
-      <li>Name the allowed files and ownership boundary.</li>
-      <li>Give one negative example.</li>
-      <li>Define what evidence will count as done.</li>
-    </ul>
-  </div>
-
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <div class="text-2xl font-bold">After generation</div>
-    <ul class="mt-5 space-y-3">
-      <li>Read shape before lines.</li>
-      <li>Check changed interfaces and data models.</li>
-      <li>Run the feedback loop.</li>
-      <li>Know how to observe and roll back.</li>
-    </ul>
-  </div>
+<div v-click class="mt-10 text-3xl leading-normal">
+Bad: “Add soft linking.”<br />
+Good: “Users may rename objects, but existing external references by UUID must keep resolving.”
 </div>
 
 ---
 
-# What I told you
+# Context: point at the relevant world
+
+<ul class="mt-10 space-y-5 text-2xl leading-normal">
+  <li v-click>Tell it which files are canonical.</li>
+  <li v-click>Tell it which existing pattern to copy.</li>
+  <li v-click>Tell it which abstraction is load-bearing.</li>
+  <li v-click>Tell it what historical weirdness is intentional.</li>
+</ul>
+
+<div v-click class="mt-10 text-3xl leading-normal">
+Do not dump the repo and hope. Curate the part of the system that explains the change.
+</div>
+
+---
+
+# Design pressure: narrow the shape
+
+<ul class="mt-10 space-y-5 text-2xl leading-normal">
+  <li v-click>Give it the interface you want to exist.</li>
+  <li v-click>Give it the data model it should preserve.</li>
+  <li v-click>Give it constraints on where logic belongs.</li>
+  <li v-click>Tell it which tempting solution is wrong.</li>
+</ul>
+
+<div v-click class="mt-10 text-3xl leading-normal">
+The model is very good at filling in a shape. It is much less reliable at inventing the right shape.
+</div>
+
+---
+
+# Feedback: make rejection cheap
+
+<ul class="mt-10 space-y-5 text-2xl leading-normal">
+  <li v-click>Give it the exact test command.</li>
+  <li v-click>Give it the benchmark or eval that matters.</li>
+  <li v-click>Ask it to explain what would prove the change wrong.</li>
+  <li v-click>Make rollback, dashboards, and production signals part of the work.</li>
+</ul>
+
+<div v-click class="mt-10 text-3xl leading-normal">
+The model can generate candidates cheaply. Your job is to make bad candidates die quickly.
+</div>
+
+---
+
+# Game: Contrafact
+
+---
+
+# TODO What I told you
 
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
   <li v-click>Code got cheap. Correctness did not.</li>
@@ -467,6 +339,14 @@ Treat the model like a very fast, context-limited junior engineer.
   <li v-click>Everyone now has to do more of the tech lead parts.</li>
   <li v-click>The loop is still the same: specify intent, preserve invariants, verify behavior, operate safely.</li>
 </ul>
+
+---
+layout: statement
+---
+
+# This is easy for simple software systems
+
+This is really really hard for complicated infrastructure systems
 
 ---
 layout: statement
