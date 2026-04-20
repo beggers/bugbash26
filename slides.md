@@ -129,12 +129,28 @@ Replace this placeholder with an image when ready, for example:
 
 ---
 
+# How I used to do a project: idealized
+
+---
+
+# The slowness of writing code was load-bearing
+
+---
+
+# The act of writing software has always been stochastic
+
+---
+
+# Layers of software verification
+
+---
+
 # Game: Rebar
 
 ---
 
 
-# Part 2: What's different now
+# Part 2: Why people think software has changed
 
 ---
 
@@ -151,14 +167,12 @@ Replace this placeholder with an image when ready, for example:
 </div>
 
 ---
-layout: statement
+
+# Part 3: Nothing new under the sun
+
 ---
 
 # Game: Contrafact
-
----
-
-# Part 3: Nothing new under the sun
 
 ---
 
