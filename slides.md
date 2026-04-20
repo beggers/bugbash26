@@ -37,30 +37,12 @@ BugBash 2026
 layout: statement
 ---
 
-# Code got cheap. Correctness did not.
+# A poll
 
 <!--
-Cold open with a short AI failure story.
-
-Target ending:
-"The funny part is that the model did something absurd. The useful part is that
-it did something allowed by the constraints we gave it."
--->
-
----
-layout: statement
----
-
-# I asked for one thing.
-
-<div class="mt-10 text-4xl leading-normal">
-The model produced a coherent implementation of a different thing.
-</div>
-
-<!--
-Use the fastest anecdote here. It should take less than two minutes.
-Avoid explaining the whole system. The only job is to create the question:
-"what, exactly, did we fail to specify?"
+- Who has used an LLM to write some code?
+- Who has been frustrated with the code an LLM wrote?
+- Who has felt that LLMs are bad at understanding intent?
 -->
 
 ---
@@ -92,12 +74,12 @@ Replace this placeholder with an image when ready, for example:
 
 ---
 
-# One disclaimer
+# Disclaimer: The economics of working at a frontier lab
 
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>Frontier labs are not normal economic environments.</li>
-  <li v-click>This is not a labor market prediction.</li>
-  <li v-click>This is a talk about reliability: how we keep software correct when code is easier to produce.</li>
+  <li v-click>Frontier labs are a massively leveraged bet on AI model quality.</li>
+  <li v-click>Therefore it is ~always rational to add more leverage.</li>
+  <li v-click>This is not true of every software business.</li>
 </ul>
 
 ---
