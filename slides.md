@@ -7,7 +7,7 @@ info: |
 class: text-left
 drawings:
   persist: false
-duration: 25min
+duration: 20min
 mdc: true
 ---
 
@@ -57,7 +57,7 @@ Replace this placeholder with an image when ready, for example:
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
   <li v-click>SRE Extraordinaire</li>
   <li v-click>Infrastructure @ OpenAI</li>
-  <li>Prev. 8th-highest 7d token user @ OpenAI</li>
+  <li v-click>Prev. 8th-highest 7d token user @ OpenAI</li>
   <li v-click>Former translator, former therapist, PCT hiker, trumpet player</li>
 </ul>
 
@@ -66,16 +66,6 @@ Replace this placeholder with an image when ready, for example:
 # TODO But first a word from our sponsors
 
 Shout outs to colleagues who helped me sharpen these ideas or from whom I stole anecdotes.
-
----
-
-# Disclaimer: The economics of working at a frontier lab
-
-<ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>Frontier labs are a massively leveraged bet on AI model quality.</li>
-  <li v-click>Therefore it is ~always rational to add more leverage.</li>
-  <li v-click>This is not true of every software business.</li>
-</ul>
 
 ---
 
@@ -144,7 +134,7 @@ TODO rebar results
 layout: statement
 ---
 
-# Part 1: What writing code used to force
+# Part 1: Writing code was reliability work
 
 ---
 
@@ -152,11 +142,11 @@ layout: statement
 
 <ol class="mt-10 space-y-4 text-2xl leading-normal">
   <li v-click>Decide intent.</li>
-  <li v-click>Own the implementation.</li>
+  <li v-click>Painstaking implementation.</li>
   <li v-click>Discover the shape of the problem.</li>
   <li v-click>Turn boundaries into interfaces and contracts.</li>
-  <li v-click>Use human care as first-pass QA.</li>
-  <li v-click>Add external feedback: review, tests, rollout, production signals.</li>
+  <li v-click>Human care as first-pass QA.</li>
+  <li v-click>External feedback: review, tests, rollout, production signals.</li>
 </ol>
 
 ---
@@ -170,44 +160,42 @@ layout: statement
 </ul>
 
 ---
+layout: statement
+---
 
 # Writing code was never just typing
-
-<ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>We discovered names.</li>
-  <li v-click>We discovered data shapes.</li>
-  <li v-click>We discovered sequencing, error cases, and invariants.</li>
-  <li v-click>We discovered what the existing system was trying to protect.</li>
-</ul>
 
 ---
 
 # The slowness was load-bearing
 
-<div class="mt-10 text-3xl leading-normal">
-When code was expensive to produce, the act of producing it forced a lot of review to happen before review.
-</div>
-
 <ul class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>You noticed awkward names because you had to use them.</li>
+  <li v-click>You wrote tests comprehensively against interfaces wherever you could.</li>
   <li v-click>You noticed bad boundaries because you had to cross them.</li>
   <li v-click>You noticed missing cases because you had to wire the path end to end.</li>
 </ul>
 
 ---
+layout: statement
+---
+
+# Writing code was always the hard part
+
+But not because of the typing.
+
+---
 
 # For a tech lead, software development was always stochastic
 
-<div class="mt-10 text-3xl leading-normal">
-It only felt deterministic because the uncertainty was spread across people and feedback loops.
-</div>
-
 <ul class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>Design guesses became code.</li>
-  <li v-click>Review caught some missing context.</li>
-  <li v-click>Tests caught some broken behavior.</li>
-  <li v-click>Rollouts and production signals caught what escaped.</li>
+  <li v-click>You don't know how a team will implement a service.</li>
+  <li v-click>You don't have to know exactly how the monitoring works.</li>
+  <li v-click>You don't have to manually review every database query for efficiency.</li>
 </ul>
+
+---
+
+# TODO boxes and stochastic movement graphic
 
 ---
 layout: statement
@@ -235,94 +223,58 @@ Audience question: what system did the model build instead?
 layout: statement
 ---
 
-# Part 2: But models are good now
+# Part 2: Agents move the work but do not obviate the need for it
 
 ---
 
 # Models crossed a usefulness threshold
 
 ---
-layout: statement
----
 
-# What models need to write good software
-
----
-
-# What models need to write good software
+# Models write better code when you do the lead work
 
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click><strong>Intent:</strong> what are we actually trying to preserve or change?</li>
-  <li v-click><strong>Context:</strong> what existing shapes, constraints, and conventions matter?</li>
-  <li v-click><strong>Design pressure:</strong> what boundaries, interfaces, and invariants should guide the change?</li>
-  <li v-click><strong>Feedback:</strong> how do we know it worked, got faster, stayed safe, and can be rolled back?</li>
+  <li v-click>Tell it what success means.</li>
+  <li v-click>Show it the parts of the system that matter.</li>
+  <li v-click>Give it the shape of the solution.</li>
+  <li v-click>Determine up-front how you will know if the change worked.</li>
 </ul>
-
-<div v-click class="mt-10 text-3xl leading-normal">
-Humans used to discover much of this by slowly writing the code.
-Models need it made explicit before and after generation.
-</div>
 
 ---
 
-# Intent: give it decisions
+# Intent: make the decision first
 
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>State the behavior change, not just the code change.</li>
-  <li v-click>Name what must not change.</li>
-  <li v-click>Declare the tradeoff you want it to make.</li>
-  <li v-click>Include one or two examples that make the desired behavior unambiguous.</li>
+  <li v-click>Say what behavior should change.</li>
+  <li v-click>Say what must keep working.</li>
+  <li v-click>Say which tradeoff you want.</li>
+  <li v-click>In the limit, prompts become math-like.</li>
 </ul>
 
-<div v-click class="mt-10 text-3xl leading-normal">
-Bad: “Add soft linking.”<br />
-Good: “Users may rename objects, but existing external references by UUID must keep resolving.”
-</div>
+Bad: "Add soft linking."
+Good: "Users can rename objects, but old UUID links must still resolve."
 
 ---
 
-# Context: point at the relevant world
+# Context: do not hand it the whole world
 
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>Tell it which files are canonical.</li>
-  <li v-click>Tell it which existing pattern to copy.</li>
-  <li v-click>Tell it which abstraction is load-bearing.</li>
-  <li v-click>Tell it what historical weirdness is intentional.</li>
+  <li v-click>Point to the files that define the pattern.</li>
+  <li v-click>Name the code it should copy.</li>
+  <li v-click>Call out the weird thing that is there on purpose.</li>
+  <li v-click>Tell it what part of the system is off limits.</li>
 </ul>
-
-<div v-click class="mt-10 text-3xl leading-normal">
-Do not dump the repo and hope. Curate the part of the system that explains the change.
-</div>
 
 ---
 
-# Design pressure: narrow the shape
+# Design pressure: give it rails
 
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>Give it the interface you want to exist.</li>
-  <li v-click>Give it the data model it should preserve.</li>
-  <li v-click>Give it constraints on where logic belongs.</li>
-  <li v-click>Tell it which tempting solution is wrong.</li>
+  <li v-click>Define the interface before it invents one.</li>
+  <li v-click>Say where the logic belongs.</li>
+  <li v-click>Say what data model cannot change.</li>
+  <li v-click>Give it as comprehensive a test harness as possible.</li>
 </ul>
-
-<div v-click class="mt-10 text-3xl leading-normal">
-The model is very good at filling in a shape. It is much less reliable at inventing the right shape.
-</div>
-
----
-
-# Feedback: make rejection cheap
-
-<ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>Give it the exact test command.</li>
-  <li v-click>Give it the benchmark or eval that matters.</li>
-  <li v-click>Ask it to explain what would prove the change wrong.</li>
-  <li v-click>Make rollback, dashboards, and production signals part of the work.</li>
-</ul>
-
-<div v-click class="mt-10 text-3xl leading-normal">
-The model can generate candidates cheaply. Your job is to make bad candidates die quickly.
-</div>
 
 ---
 
@@ -344,9 +296,9 @@ The model can generate candidates cheaply. Your job is to make bad candidates di
 layout: statement
 ---
 
-# This is easy for simple software systems
+# Code got cheap
 
-This is really really hard for complicated infrastructure systems
+Correctness did not.
 
 ---
 layout: statement
