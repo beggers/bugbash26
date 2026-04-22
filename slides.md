@@ -52,7 +52,7 @@ layoutClass: gap-12 items-center
 
 ---
 
-# But first a word from our sponsors
+# A word from our sponsors
 
 <div class="mt-8 grid grid-cols-6 gap-4">
   <div>
@@ -448,9 +448,9 @@ type PracticeSession extends DomainModel = {
 
 </div>
 
-<div v-click="3" class="contrafact-small-code mt-3">
+<div v-click="3" class="contrafact-small-code contrafact-added-lines mt-3">
 
-```swift
+```swift {7-9}
 @Model
 final class PracticeSession {
   @Relationship var etudes: [Etude] = []
@@ -467,7 +467,7 @@ final class PracticeSession {
 
 ::right::
 
-<div v-click="2" class="contrafact-code">
+<div v-click="2" class="contrafact-code contrafact-added-lines">
 
 ```ts
 // What I actually got
@@ -654,6 +654,21 @@ layout: statement
 :global(.contrafact-small-code pre) {
   font-size: 0.7rem !important;
   line-height: 1.25 !important;
+}
+
+:global(.contrafact-added-lines .slidev-code-dishonored) {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+:global(.contrafact-added-lines .slidev-code-highlighted) {
+  display: inline-block;
+  min-width: calc(100% + (var(--slidev-code-padding) * 2));
+  margin-inline: calc(var(--slidev-code-padding) * -1);
+  padding-inline: var(--slidev-code-padding);
+  border-radius: 2px;
+  background: rgba(45, 156, 86, 0.24);
+  box-shadow: inset 4px 0 rgba(25, 126, 61, 0.78);
 }
 
 </style>
