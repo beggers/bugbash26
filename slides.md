@@ -261,6 +261,22 @@ layout: statement
 
 # Models crossed a usefulness threshold
 
+<div class="threshold-images">
+  <img
+    v-click
+    src="/41-vs-opus46.png"
+    alt="Comparison of model 4.1 and Opus 4.6"
+    class="threshold-shot threshold-shot-models"
+  />
+
+  <img
+    v-click
+    src="/arc-prize-leaderboard.png"
+    alt="ARC Prize leaderboard"
+    class="threshold-shot threshold-shot-arc"
+  />
+</div>
+
 ---
 
 # Models write better code when you do the lead work
@@ -299,7 +315,7 @@ layout: statement
 
 ---
 
-# A checklist for managing ~~junior engineers~~ AI agents
+# A checklist for managing ~~an army of interns~~ AI agents
 
 ---
 
@@ -428,5 +444,36 @@ layout: statement
   z-index: 4;
   width: 48%;
   transform: rotate(-3deg);
+}
+
+:global(.threshold-images) {
+  position: relative;
+  height: 430px;
+  margin-top: 1rem;
+}
+
+:global(.threshold-shot) {
+  position: absolute;
+  display: block;
+  left: 50%;
+  top: 50%;
+  max-width: 94%;
+  max-height: 420px;
+  transform: translate(-50%, -50%);
+  border: 10px solid #fff8ee;
+  border-radius: 12px;
+  background: #fff8ee;
+  object-fit: contain;
+  box-shadow: 0 20px 38px rgba(63, 52, 43, 0.30);
+}
+
+:global(.threshold-shot-models) {
+  z-index: 1;
+  height: 410px;
+}
+
+:global(.threshold-shot-arc) {
+  z-index: 2;
+  width: 94%;
 }
 </style>
