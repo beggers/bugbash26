@@ -255,7 +255,7 @@ TODO a summary of the slow and stochastic process that used to be building softw
 layout: statement
 ---
 
-# Part 2: Agents move the work but do not obviate the need for it
+# Part 2: Agents move the work; they don't make it disappear
 
 ---
 
@@ -283,16 +283,17 @@ layout: statement
 
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
   <li v-click>Tell it what success means.</li>
-  <li v-click>Show it the parts of the system that matter.</li>
   <li v-click>Give it the shape of the solution.</li>
   <li v-click>Determine up-front how you will know if the change worked.</li>
 </ul>
 
-<div v-click><strong>These are the same things humans need to build good software. But we lost the slow process of discovery.</strong></div>
+<div v-click class="mt-12 text-3xl leading-relaxed">
+  <strong>These are the same things humans need to build good software. But we lost the slow process of discovery.</strong>
+</div>
 
 ---
 
-# Intent: make the decision first
+# Intent: Make the decision first
 
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
   <li v-click>Say what behavior should change.</li>
@@ -301,21 +302,44 @@ layout: statement
   <li v-click>In the limit, prompts become math-like.</li>
 </ul>
 
+---
+
+# Design: Do the hardest parts yourself
+
+<div class="mt-10 grid grid-cols-2 gap-6 text-xl leading-normal">
+  <div v-click class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Own the data shape</div>
+    <div class="mt-4 text-2xl font-bold">Write your schemas by hand.</div>
+    <div class="mt-4 opacity-75">Names, nullability, ownership, and versioning are architecture.</div>
+  </div>
+
+  <div v-click class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Own the boundary</div>
+    <div class="mt-4 text-2xl font-bold">Write your APIs and interfaces by hand.</div>
+    <div class="mt-4 opacity-75">Agents can implement behind them; they should not invent contracts.</div>
+  </div>
+</div>
 
 ---
 
-# Design pressure: give it rails
+# Correctness: Give it rails
 
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>Define the interface before it invents one.</li>
-  <li v-click>Say where the logic belongs.</li>
-  <li v-click>Say what data model cannot change.</li>
+  <li v-click>Say which data models cannot change.</li>
   <li v-click>Give it as comprehensive a test harness as possible.</li>
+  <li v-click>Always implement tests in a different context.</li>
 </ul>
 
 ---
 
-# A checklist for managing ~~an army of interns~~ AI agents
+# In summary: a checklist for managing ~~an army of interns~~ AI agents
+
+<ul class="mt-10 space-y-5 text-2xl leading-normal">
+  <li v-click>Crisply define the behavior change you want in prose.</li>
+  <li v-click>Implement your schemas and interfaces.</li>
+  <li v-click>Implement tests for the change.</li>
+  <li v-click>Let an agent fill in the blanks.</li>
+</ul>
 
 ---
 
