@@ -38,17 +38,7 @@ layout: two-cols
 layoutClass: gap-12 items-center
 ---
 
-<!--
-Replace this placeholder with an image when ready, for example:
-<img src="/me.jpg" alt="Ben speaking" class="h-110 w-full object-cover rounded-lg shadow-xl" />
--->
-
-<div class="h-110 w-full rounded-lg border border-black/15 bg-white/45 shadow-xl flex items-center justify-center">
-  <div class="text-center opacity-60">
-    <div class="text-4xl font-bold">Photo</div>
-    <div class="mt-3 text-lg">your picture goes here</div>
-  </div>
-</div>
+<img src="/bugbash2026.jpg" alt="Ben speaking" class="h-110 w-full object-cover rounded-lg shadow-xl" />
 
 ::right::
 
@@ -58,14 +48,44 @@ Replace this placeholder with an image when ready, for example:
   <li v-click>SRE Extraordinaire</li>
   <li v-click>Infrastructure @ OpenAI</li>
   <li v-click>Prev. 8th-highest 7d token user @ OpenAI</li>
-  <li v-click>Former translator, former therapist, PCT hiker, trumpet player</li>
+  <li v-click>PCT hiker, trumpet player, former translator, former therapist</li>
 </ul>
 
 ---
 
-# TODO But first a word from our sponsors
+# But first a word from our sponsors
 
-Shout outs to colleagues who helped me sharpen these ideas or from whom I stole anecdotes.
+<div class="mt-8 grid grid-cols-6 gap-4">
+  <div>
+    <img src="/carl.jpeg" alt="Carl" class="aspect-square w-full rounded-lg object-cover shadow-md" />
+    <div class="mt-3 rounded border border-black/20 bg-white/55 px-3 py-1.5 text-center text-lg font-semibold">Carl Ross</div>
+  </div>
+
+  <div>
+    <img src="/friel.jpeg" alt="Friel" class="aspect-square w-full rounded-lg object-cover shadow-md" />
+    <div class="mt-3 rounded border border-black/20 bg-white/55 px-3 py-1.5 text-center text-lg font-semibold">Aaron Friel</div>
+  </div>
+
+  <div>
+    <img src="/gueandre.jpeg" alt="Gueandre" class="aspect-square w-full rounded-lg object-cover shadow-md" />
+    <div class="mt-3 rounded border border-black/20 bg-white/55 px-3 py-1.5 text-center text-lg font-semibold">Andrew Guenther</div>
+  </div>
+
+  <div>
+    <img src="/mario.jpeg" alt="Mario" class="aspect-square w-full rounded-lg object-cover shadow-md" />
+    <div class="mt-3 rounded border border-black/20 bg-white/55 px-3 py-1.5 text-center text-lg font-semibold">Mario Camacho</div>
+  </div>
+
+  <div>
+    <img src="/noah.jpeg" alt="Noah" class="aspect-square w-full rounded-lg object-cover shadow-md" />
+    <div class="mt-3 rounded border border-black/20 bg-white/55 px-3 py-1.5 text-center text-lg font-semibold">Noah Lindner</div>
+  </div>
+
+  <div>
+    <img src="/robbie_bb.jpeg" alt="Robbie" class="aspect-square w-full rounded-lg object-cover shadow-md" />
+    <div class="mt-3 rounded border border-black/20 bg-white/55 px-3 py-1.5 text-center text-lg font-semibold">Robbie Ostrow</div>
+  </div>
+</div>
 
 ---
 
