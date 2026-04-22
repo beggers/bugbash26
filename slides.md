@@ -45,7 +45,6 @@ layoutClass: gap-12 items-center
 # Hello I am Ben
 
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>SRE Extraordinaire</li>
   <li v-click>Infrastructure @ OpenAI</li>
   <li v-click>Prev. 8th-highest 7d token user @ OpenAI</li>
   <li v-click>PCT hiker, trumpet player, former translator, former therapist</li>
@@ -96,8 +95,8 @@ layoutClass: gap-12 items-center
 </div>
 
 <ul class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>Writing code was always the hard part because it included design work.</li>
-  <li v-click>The hard part is still there today.</li>
+  <li v-click>Part 1: Writing code was always the hard part.</li>
+  <li v-click>Part 2: Agents move the work but do not obviate the need for it.</li>
 </ul>
 
 ---
@@ -146,7 +145,6 @@ layoutClass: gap-12 items-center
 
 # Game: Rebar
 
-
 <div class="relative mt-4 h-[430px]">
   <div v-click class="rebar-shot rebar-shot-json">
     <div class="rebar-sticker">Hard-coded JSON!</div>
@@ -164,7 +162,7 @@ layoutClass: gap-12 items-center
   </div>
 
   <div v-click class="rebar-shot rebar-shot-report">
-    <div class="rebar-sticker">Tiny little report!</div>
+    <div class="rebar-sticker">Many megabytes of report!</div>
     <img src="/rebar_report.png" alt="Rebar report screenshot" />
   </div>
 </div>
@@ -173,7 +171,14 @@ layoutClass: gap-12 items-center
 layout: statement
 ---
 
-# Part 1: Writing code was reliability work
+# Part 1: Writing code was always the hard part
+
+---
+
+# TODO Writing code was slooow
+
+- Maybe some math on WPM vs lines of code per day?
+- Maybe the rough heuristic that an engineer can at most produce 500-1,000 lines of high-quality code in a very good day?
 
 ---
 
@@ -181,46 +186,27 @@ layout: statement
 
 <ol class="mt-10 space-y-4 text-2xl leading-normal">
   <li v-click>Decide intent.</li>
-  <li v-click>Painstaking implementation.</li>
-  <li v-click>Discover the shape of the problem.</li>
+  <li v-click>Discover the shape of the problem while implementing.</li>
   <li v-click>Turn boundaries into interfaces and contracts.</li>
-  <li v-click>Human care as first-pass QA.</li>
-  <li v-click>External feedback: review, tests, rollout, production signals.</li>
+  <li v-click><strong>Human care as first-pass QA.</strong></li>
 </ol>
-
----
-
-# Humans thought about intent and implementation
-
-<ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>Someone knew what success was supposed to mean.</li>
-  <li v-click>Someone had to reconcile the code with the existing system.</li>
-  <li v-click>Someone was accountable for the awkward edge cases.</li>
-</ul>
-
----
-layout: statement
----
-
-# Writing code was never just typing
 
 ---
 
 # The slowness was load-bearing
 
 <ul class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>You wrote tests comprehensively against interfaces wherever you could.</li>
+  <li v-click>You wrote tests against interfaces wherever you could.</li>
   <li v-click>You noticed bad boundaries because you had to cross them.</li>
   <li v-click>You noticed missing cases because you had to wire the path end to end.</li>
+  <li v-click>You noticed bad database queries because as you wrote them.</li>
 </ul>
 
 ---
-layout: statement
----
 
-# Writing code was always the hard part
+# TODO There was a natural equilibrium
 
-But not because of the typing.
+Of implementation speed vs thought required for a task.
 
 ---
 
@@ -228,8 +214,8 @@ But not because of the typing.
 
 <ul class="mt-10 space-y-4 text-2xl leading-normal">
   <li v-click>You don't know how a team will implement a service.</li>
-  <li v-click>You don't have to know exactly how the monitoring works.</li>
-  <li v-click>You don't have to manually review every database query for efficiency.</li>
+  <li v-click>You don't know exactly how the monitoring works.</li>
+  <li v-click>You don't manually review every database query for efficiency.</li>
 </ul>
 
 ---
@@ -237,25 +223,32 @@ But not because of the typing.
 # TODO boxes and stochastic movement graphic
 
 ---
-layout: statement
+
+# TODO In summary
+
+TODO a summary of the slow and stochastic process that used to be building software.
+
 ---
 
-# TODO Game: Database-y thing
+# Game: Data storage system
 
-<div class="mt-8 grid grid-cols-2 gap-8 text-xl leading-normal">
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <div class="text-sm uppercase tracking-wider opacity-60">Prompt</div>
-    <div class="mt-4 text-2xl">Paste the smallest exact prompt that sets up the turtle KV example.</div>
-  </div>
-
-  <div class="rounded-lg border border-black/15 bg-white/50 p-6">
-    <div class="text-sm uppercase tracking-wider opacity-60">Human intent</div>
-    <div class="mt-4 text-2xl">Describe the system shape you thought was obvious.</div>
-  </div>
+<div v-click class="h-full flex items-center justify-center">
+  <img
+    src="/storage_system.png"
+    alt="Diagram of comprehensive tests comparing a legacy storage system to a new object storage and KV store system"
+    class="max-h-[95%] max-w-full object-contain"
+  />
 </div>
 
-<div v-click class="mt-10 text-4xl font-bold">
-Audience question: what system did the model build instead?
+---
+
+# Game: Data storage system
+
+<div v-click class="h-full flex items-center justify-center">
+  <img
+    src="/kv_store_results.png"
+    class="max-h-[95%] max-w-full object-contain"
+  />
 </div>
 
 ---
