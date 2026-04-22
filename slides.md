@@ -272,6 +272,8 @@ layout: statement
   <li v-click>Determine up-front how you will know if the change worked.</li>
 </ul>
 
+<div v-click><strong>These are the same things humans need to build good software. But we lost the slow process of discovery.</strong></div>
+
 ---
 
 # Intent: make the decision first
@@ -283,19 +285,6 @@ layout: statement
   <li v-click>In the limit, prompts become math-like.</li>
 </ul>
 
-Bad: "Add soft linking."
-Good: "Users can rename objects, but old UUID links must still resolve."
-
----
-
-# Context: do not hand it the whole world
-
-<ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>Point to the files that define the pattern.</li>
-  <li v-click>Name the code it should copy.</li>
-  <li v-click>Call out the weird thing that is there on purpose.</li>
-  <li v-click>Tell it what part of the system is off limits.</li>
-</ul>
 
 ---
 
@@ -310,16 +299,19 @@ Good: "Users can rename objects, but old UUID links must still resolve."
 
 ---
 
+# A checklist for managing ~~junior engineers~~ AI agents
+
+---
+
 # Game: Contrafact
 
 ---
 
-# TODO What I told you
+# What I told you
 
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>Code got cheap. Correctness did not.</li>
   <li v-click>Writing code used to force a lot of design thinking to happen implicitly.</li>
-  <li v-click>Agentic coding makes that thinking explicit: before generation and after generation.</li>
+  <li v-click>Agentic coding requires that thinking to be explicit.</li>
   <li v-click>Everyone now has to do more of the tech lead parts.</li>
   <li v-click>The loop is still the same: specify intent, preserve invariants, verify behavior, operate safely.</li>
 </ul>
@@ -330,7 +322,7 @@ layout: statement
 
 # Code got cheap
 
-Correctness did not.
+<div v-click>Correctness did not.</div>
 
 ---
 layout: statement
