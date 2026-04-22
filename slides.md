@@ -25,7 +25,7 @@ BugBash 2026
 layout: statement
 ---
 
-# A poll
+# First, a poll
 
 <!--
 - Who has used an LLM to write some code?
@@ -95,8 +95,17 @@ layoutClass: gap-12 items-center
 </div>
 
 <ul class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>Part 1: Writing code was always the hard part.</li>
+  <li v-click>Part 1: Writing code was where the hard parts surfaced.</li>
   <li v-click>Part 2: Agents move the work but do not obviate the need for it.</li>
+</ul>
+
+---
+
+# Scope note
+
+<ul class="mt-10 space-y-5 text-2xl leading-normal">
+  <li v-click>I am talking about deep, narrow systems: databases, storage, runtimes, infra.</li>
+  <li v-click>Not broad, high-surface-area systems (web portals, apps).</li>
 </ul>
 
 ---
@@ -171,14 +180,17 @@ layoutClass: gap-12 items-center
 layout: statement
 ---
 
-# Part 1: Writing code was always the hard part
+# Part 1: Writing code was where the hard parts surfaced
 
 ---
 
-# TODO Writing code was slooow
+# The bottleneck was never typing
 
-- Maybe some math on WPM vs lines of code per day?
-- Maybe the rough heuristic that an engineer can at most produce 500-1,000 lines of high-quality code in a very good day?
+<ul class="mt-10 space-y-5 text-2xl leading-normal">
+  <li v-click>At typing speed, code is cheap.</li>
+  <li v-click>A good day ships hundreds of reviewed lines, not thousands.</li>
+  <li v-click>The missing time is design, discovery, integration, and correctness.</li>
+</ul>
 
 ---
 
@@ -186,9 +198,9 @@ layout: statement
 
 <ol class="mt-10 space-y-4 text-2xl leading-normal">
   <li v-click>Decide intent.</li>
-  <li v-click>Discover the shape of the problem while implementing.</li>
-  <li v-click>Turn boundaries into interfaces and contracts.</li>
-  <li v-click><strong>Human care as first-pass QA.</strong></li>
+  <li v-click>Discover the shape of the problem.</li>
+  <li v-click>Turn boundaries into contracts.</li>
+  <li v-click><strong>Notice weirdness before anyone else does.</strong></li>
 </ol>
 
 ---
@@ -196,37 +208,90 @@ layout: statement
 # The slowness was load-bearing
 
 <ul class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>You wrote tests against interfaces wherever you could.</li>
-  <li v-click>You noticed bad boundaries because you had to cross them.</li>
-  <li v-click>You noticed missing cases because you had to wire the path end to end.</li>
-  <li v-click>You noticed bad database queries because as you wrote them.</li>
+  <li v-click>Crossing boundaries exposed bad interfaces.</li>
+  <li v-click>Wiring paths end-to-end exposed missing cases.</li>
+  <li v-click>Writing queries exposed data-shape and scale assumptions.</li>
+  <li v-click>Tests forced expected behavior to become explicit.</li>
 </ul>
 
 ---
 
-# TODO There was a natural equilibrium
+# There was a natural equilibrium
 
-Of implementation speed vs thought required for a task.
+<div class="mt-10 grid grid-cols-[1fr_auto_1fr] items-center gap-6 text-xl leading-normal">
+  <div v-click class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Production speed</div>
+    <div class="mt-4 text-2xl font-bold">How fast code appeared</div>
+  </div>
+
+  <div v-click class="text-5xl font-bold opacity-60">=</div>
+
+  <div v-click class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Verification bandwidth</div>
+    <div class="mt-4 text-2xl font-bold">How fast humans could reason about it</div>
+  </div>
+</div>
+
+<div v-click class="mt-12 text-3xl leading-relaxed">
+  <strong>Code production was slow enough that thought, review, tests, and operational feedback could keep up.</strong>
+</div>
 
 ---
 
-# For a tech lead, software development was always stochastic
+# Tech leads already managed stochastic work
 
 <ul class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>You don't know how a team will implement a service.</li>
-  <li v-click>You don't know exactly how the monitoring works.</li>
-  <li v-click>You don't manually review every database query for efficiency.</li>
+  <li v-click>You specify intent and constraints.</li>
+  <li v-click>Other people explore implementation paths.</li>
+  <li v-click>You manage variance with APIs, tests, reviews, metrics, and rollback.</li>
 </ul>
 
 ---
 
-# TODO boxes and stochastic movement graphic
+# The job was narrowing the distribution
+
+<div class="mt-10 grid grid-cols-[1fr_auto_1.4fr_auto_1fr] items-center gap-4 text-center">
+  <div v-click class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Start</div>
+    <div class="mt-4 text-2xl font-bold">Intent</div>
+  </div>
+
+  <div v-click class="text-4xl opacity-60">-&gt;</div>
+
+  <div v-click class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Middle</div>
+    <div class="mt-4 text-2xl font-bold">Many possible implementations</div>
+    <div class="mt-5 grid grid-cols-3 gap-3 text-base">
+      <div class="rounded border border-black/15 bg-white/60 p-3">path A</div>
+      <div class="rounded border border-black/15 bg-white/60 p-3">path B</div>
+      <div class="rounded border border-black/15 bg-white/60 p-3">path C</div>
+    </div>
+  </div>
+
+  <div v-click class="text-4xl opacity-60">-&gt;</div>
+
+  <div v-click class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">End</div>
+    <div class="mt-4 text-2xl font-bold">Production behavior</div>
+  </div>
+</div>
+
+<div v-click class="mt-10 grid grid-cols-4 gap-3 text-center text-lg font-semibold">
+  <div class="rounded border border-black/15 bg-white/55 px-3 py-3">schemas</div>
+  <div class="rounded border border-black/15 bg-white/55 px-3 py-3">APIs</div>
+  <div class="rounded border border-black/15 bg-white/55 px-3 py-3">tests</div>
+  <div class="rounded border border-black/15 bg-white/55 px-3 py-3">review</div>
+</div>
 
 ---
 
-# TODO In summary
+# In summary
 
-TODO a summary of the slow and stochastic process that used to be building software.
+<ul class="mt-10 space-y-5 text-2xl leading-normal">
+  <li v-click>The old coding loop forced design thinking to happen implicitly.</li>
+  <li v-click>Slowness acted as a rate limiter.</li>
+  <li v-click>Tech leads already managed uncertain implementers with explicit rails.</li>
+</ul>
 
 ---
 
@@ -250,7 +315,6 @@ TODO a summary of the slow and stochastic process that used to be building softw
     class="max-h-[95%] max-w-full object-contain"
   />
 </div>
-
 ---
 layout: statement
 ---
@@ -343,7 +407,7 @@ layout: statement
 
 ---
 
-# Game: Contrafact
+# TODO Game: Contrafact
 
 ---
 
