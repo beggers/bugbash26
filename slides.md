@@ -407,7 +407,88 @@ layout: statement
 
 ---
 
-# TODO Game: Contrafact
+# Game: Contrafact
+
+<div class="mt-10 grid grid-cols-3 gap-6 text-xl leading-normal">
+  <div v-click class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Step 1</div>
+    <div class="mt-4 text-2xl font-bold">The goal: build a practice journal for tracking jazz practice</div>
+  </div>
+
+  <div v-click class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Step 2</div>
+    <div class="mt-4 text-2xl font-bold">The setup: hand-written storage models, feature views, and DomainModel patterns</div>
+  </div>
+
+  <div v-click class="rounded-lg border border-black/15 bg-white/50 p-6">
+    <div class="text-sm uppercase tracking-wider opacity-60">Step 3</div>
+    <div class="mt-4 text-2xl font-bold">The prompt(s): build features on top of those patterns.</div>
+  </div>
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+---
+
+# Game: Contrafact
+
+::left::
+
+<div v-click="1" class="contrafact-code">
+
+```ts
+// What I thought I had specified
+type PracticeSession extends DomainModel = {
+  etudes: Etude[]
+  tune: Tune
+  goals: PracticeGoal[]
+}
+```
+
+</div>
+
+<div v-click="3" class="contrafact-small-code mt-3">
+
+```swift
+@Model
+final class PracticeSession {
+  @Relationship var etudes: [Etude] = []
+  @Relationship var goals: [PracticeGoal] = []
+  var tune: Tune?
+
+  var etudeIds: [UUID] = []
+  var goalIds: [UUID] = []
+  var tuneId: UUID?
+}
+```
+
+</div>
+
+::right::
+
+<div v-click="2" class="contrafact-code">
+
+```ts
+// What I actually got
+class PracticeSession extends DomainModel {
+  etudeIds: UUID[]
+  tuneId: UUID
+  goalIds: UUID[]
+
+  async etudes(store: ModelStore): Promise<Etude[]> {
+    return Promise.all(this.etudeIds.map(async (id) => {
+      const model = await store.get(id)
+      if (model.kind !== "Etude") {
+        throw new Error(`expected Etude, got ${model.kind}`)
+      }
+      return model
+    }))
+  }
+}
+```
+
+</div>
 
 ---
 
@@ -564,4 +645,15 @@ layout: statement
   z-index: 2;
   width: 94%;
 }
+
+:global(.contrafact-code pre) {
+  font-size: 0.8rem !important;
+  line-height: 1.35 !important;
+}
+
+:global(.contrafact-small-code pre) {
+  font-size: 0.7rem !important;
+  line-height: 1.25 !important;
+}
+
 </style>
