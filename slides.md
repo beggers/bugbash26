@@ -89,17 +89,15 @@ layoutClass: gap-12 items-center
 
 ---
 
-# TODO What I am going to tell you
+# What I am going to tell you
 
-<div class="mt-12 text-3xl leading-relaxed">
-AI changes <strong>where the work happens</strong>.
-It does not change <strong>what reliability requires</strong>.
+<div v-click class="mt-12 text-3xl leading-relaxed">
+<strong>All the hard parts of building software are still there and are still hard.</strong>
 </div>
 
 <ul class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>Writing code was always doing design work.</li>
-  <li v-click>Agentic tools move that work before and after generation.</li>
-  <li v-click>The important job is still: specify intent, preserve invariants, verify behavior, operate safely.</li>
+  <li v-click>Writing code was always the hard part because it included design work.</li>
+  <li v-click>The hard part is still there today.</li>
 </ul>
 
 ---
@@ -146,9 +144,30 @@ It does not change <strong>what reliability requires</strong>.
 
 ---
 
-# TODO Game: Rebar
+# Game: Rebar
 
-TODO rebar results
+
+<div class="relative mt-4 h-[430px]">
+  <div v-click class="rebar-shot rebar-shot-json">
+    <div class="rebar-sticker">Hard-coded JSON!</div>
+    <img src="/rebar_json.png" alt="Rebar generated JSON screenshot" />
+  </div>
+
+  <div v-click class="rebar-shot rebar-shot-wc">
+    <div class="rebar-sticker">A single 24,000-line Rust crate!</div>
+    <img src="/rebar_rust.png" alt="Rebar 24k-line crate" />
+  </div>
+
+  <div v-click class="rebar-shot rebar-shot-languages">
+    <div class="rebar-sticker">Surprise Python!</div>
+    <img src="/rebar_languages.png" alt="Rebar language report screenshot" />
+  </div>
+
+  <div v-click class="rebar-shot rebar-shot-report">
+    <div class="rebar-sticker">Tiny little report!</div>
+    <img src="/rebar_report.png" alt="Rebar report screenshot" />
+  </div>
+</div>
 
 ---
 layout: statement
@@ -361,5 +380,68 @@ layout: statement
 :global(.slidev-layout .rounded) {
   background: rgba(255, 255, 255, 0.46);
   border-color: rgba(63, 52, 43, 0.18);
+}
+
+:global(.rebar-shot) {
+  position: absolute;
+  border: 10px solid #fff8ee;
+  border-radius: 14px;
+  background: #fff8ee;
+  box-shadow: 0 18px 34px rgba(63, 52, 43, 0.28);
+}
+
+:global(.rebar-shot img) {
+  display: block;
+  width: 100%;
+  border-radius: 6px;
+}
+
+:global(.rebar-sticker) {
+  position: absolute;
+  top: -1.3rem;
+  right: 1.1rem;
+  z-index: 2;
+  transform: rotate(5deg);
+  border: 2px solid rgba(63, 52, 43, 0.24);
+  border-radius: 999px;
+  background: #ffd95a;
+  color: #3f342b;
+  font-size: 1.05rem;
+  font-weight: 800;
+  white-space: nowrap;
+  padding: 0.28rem 0.78rem;
+  box-shadow: 0 6px 12px rgba(63, 52, 43, 0.18);
+}
+
+:global(.rebar-shot-json) {
+  left: 0.2rem;
+  top: 1.1rem;
+  z-index: 1;
+  width: 72%;
+  transform: rotate(-4deg);
+}
+
+:global(.rebar-shot-wc) {
+  right: 1.1rem;
+  top: 4.9rem;
+  z-index: 2;
+  width: 56%;
+  transform: rotate(7deg);
+}
+
+:global(.rebar-shot-languages) {
+  left: 1.2rem;
+  top: 14.2rem;
+  z-index: 3;
+  width: 42%;
+  transform: rotate(8deg);
+}
+
+:global(.rebar-shot-report) {
+  right: 3.8rem;
+  top: 12.7rem;
+  z-index: 4;
+  width: 48%;
+  transform: rotate(-3deg);
 }
 </style>
