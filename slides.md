@@ -13,8 +13,6 @@ mdc: true
 
 # Nothing has changed about software development
 
-Reliability lessons for an era of agentic AI tools
-
 <div class="mt-12 text-xl opacity-80">
 Ben Eggers
 
@@ -99,14 +97,23 @@ layoutClass: gap-12 items-center
   <li v-click>Part 2: Agents move the work but do not obviate the need for it.</li>
 </ul>
 
+<div v-click class="mt-8 flex gap-0 overflow-hidden rounded-lg shadow-lg">
+  <img v-click="1" src="/thinking.png" alt="Deep, narrow systems" class="w-1/2 mx-auto object-contain" />
+</div>
+
 ---
 
 # Scope note
 
-<ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>I am talking about deep, narrow systems: databases, storage, runtimes, infra.</li>
-  <li v-click>Not broad, high-surface-area systems (web portals, apps).</li>
+<ul class="mt-8 space-y-4 text-2xl leading-normal">
+  <li v-click="1">I am talking about deep, narrow systems: databases, storage, runtimes, infra.</li>
+  <li v-click="2">Not broad, high-surface-area systems (web portals, apps).</li>
 </ul>
+
+<div class="mt-5 grid grid-cols-2 gap-4">
+  <img v-click="1" src="/deep_narrow.png" alt="Deep, narrow systems" class="h-[220px] w-full object-contain" />
+  <img v-click="2" src="/shallow_broad.png" alt="Shallow, broad systems" class="h-[220px] w-full object-contain" />
+</div>
 
 ---
 
@@ -196,23 +203,32 @@ layout: statement
 
 # What writing code used to force
 
-<ol class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>Decide intent.</li>
-  <li v-click>Discover the shape of the problem.</li>
-  <li v-click>Turn boundaries into contracts.</li>
-  <li v-click><strong>Notice weirdness before anyone else does.</strong></li>
-</ol>
+<div class="mt-8 grid grid-cols-[1fr_330px] items-center gap-10">
+  <ol class="space-y-4 text-2xl leading-normal">
+    <li v-click>Decide intent.</li>
+    <li v-click>Discover the shape of the problem.</li>
+    <li v-click>Turn boundaries into contracts.</li>
+    <li v-click><strong>Notice weirdness before anyone else does.</strong></li>
+    <li v-click>Fill in the code.</li>
+  </ol>
+
+  <img src="/writing_code.png" alt="Writing code" class="max-h-[360px] w-full rounded-lg object-contain shadow-xl" />
+</div>
 
 ---
 
 # The slowness was load-bearing
 
-<ul class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>Crossing boundaries exposed bad interfaces.</li>
-  <li v-click>Wiring paths end-to-end exposed missing cases.</li>
-  <li v-click>Writing queries exposed data-shape and scale assumptions.</li>
-  <li v-click>Tests forced expected behavior to become explicit.</li>
-</ul>
+<div class="mt-8 grid grid-cols-[1fr_320px] items-center gap-10">
+  <ul class="space-y-4 text-2xl leading-normal">
+    <li v-click>Crossing boundaries exposed bad interfaces.</li>
+    <li v-click>Wiring paths end-to-end exposed missing cases.</li>
+    <li v-click>Writing queries exposed data-shape and scale assumptions.</li>
+    <li v-click>Tests forced expected behavior to become explicit.</li>
+  </ul>
+
+  <img src="/load_bearing_turtle.png" alt="Load-bearing turtle" class="w-full object-contain" />
+</div>
 
 ---
 
@@ -240,11 +256,34 @@ layout: statement
 
 # Tech leads already managed stochastic work
 
-<ul class="mt-10 space-y-4 text-2xl leading-normal">
-  <li v-click>You specify intent and constraints.</li>
-  <li v-click>Other people explore implementation paths.</li>
-  <li v-click>You manage variance with APIs, tests, reviews, metrics, and rollback.</li>
-</ul>
+<div class="mt-8 grid grid-cols-[0.95fr_1.05fr] items-start gap-8">
+  <ul class="space-y-4 text-2xl leading-normal">
+    <li v-click="1">You specify intent and constraints.</li>
+    <li v-click="2">Other people explore implementation paths.</li>
+    <li v-click="3">You manage variance with APIs, tests, reviews, and metrics.</li>
+  </ul>
+
+  <div class="relative h-[390px] w-full">
+    <img
+      v-click="[1, 2]"
+      src="/tech_lead_sketch.png"
+      alt="Tech lead sketching intent and constraints"
+      class="absolute inset-0 h-full w-full rounded-lg object-contain shadow-xl"
+    />
+    <img
+      v-click="[2, 3]"
+      src="/tech_lead_implementation.png"
+      alt="Tech lead reviewing implementation paths"
+      class="absolute inset-0 h-full w-full rounded-lg object-contain shadow-xl"
+    />
+    <img
+      v-click="3"
+      src="/tech_lead_database.png"
+      alt="Tech lead managing variance with APIs, tests, reviews, and metrics"
+      class="absolute inset-0 h-full w-full rounded-lg object-contain shadow-xl"
+    />
+  </div>
+</div>
 
 ---
 
@@ -287,11 +326,17 @@ layout: statement
 
 # In summary
 
-<ul class="mt-10 space-y-5 text-2xl leading-normal">
-  <li v-click>The old coding loop forced design thinking to happen implicitly.</li>
-  <li v-click>Slowness acted as a rate limiter.</li>
-  <li v-click>Tech leads already managed uncertain implementers with explicit rails.</li>
+<ul class="mt-8 space-y-5 text-2xl leading-normal">
+  <li v-click="1">The old coding loop forced design thinking.</li>
+  <li v-click="2">Slowness acted as a rate limiter.</li>
+  <li v-click="3">Tech leads already managed uncertain implementers with explicit rails.</li>
 </ul>
+
+<div class="mt-7 grid grid-cols-3 gap-5">
+  <img v-click="1" src="/writing_code.png" alt="Writing code" class="h-[190px] w-full rounded-lg object-contain shadow-lg" />
+  <img v-click="2" src="/load_bearing_turtle.png" alt="Load-bearing turtle" class="h-[190px] w-full rounded-lg object-contain shadow-lg" />
+  <img v-click="3" src="/tech_lead_database.png" alt="Tech lead database diagram" class="h-[190px] w-full rounded-lg object-contain shadow-lg" />
+</div>
 
 ---
 
