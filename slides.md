@@ -401,8 +401,11 @@ layout: statement
 </div>
 
 ---
+layout: two-cols
+layoutClass: gap-10 items-center
+---
 
-# Intent: Make the decision first
+# Intent: Make the decisions first
 
 <ul class="mt-10 space-y-5 text-2xl leading-normal">
   <li v-click>Say what behavior should change.</li>
@@ -410,6 +413,14 @@ layout: statement
   <li v-click>Say which tradeoff you want.</li>
   <li v-click>In the limit, prompts become math-like.</li>
 </ul>
+
+::right::
+
+<img
+  src="/design.png"
+  alt="Branching implementation paths narrowed by upfront design decisions"
+  class="w-full rounded-lg object-contain shadow-xl"
+/>
 
 ---
 
@@ -430,6 +441,9 @@ layout: statement
 </div>
 
 ---
+layout: two-cols
+layoutClass: gap-10 items-center
+---
 
 # Correctness: Give it rails
 
@@ -438,6 +452,14 @@ layout: statement
   <li v-click>Give it as comprehensive a test harness as possible.</li>
   <li v-click>Always implement tests in a different context.</li>
 </ul>
+
+::right::
+
+<img
+  src="/correctness.png"
+  alt="Abstract component diagram branching into two differently colored implementations"
+  class="w-full rounded-lg object-contain shadow-xl"
+/>
 
 ---
 
